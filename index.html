@@ -54,7 +54,7 @@
 
 *{box-sizing:border-box;}
 h1,h2,h3,h4,h5,h6,p,ul,ol,li,blockquote,figure{margin:0; padding:0;}
-html{scroll-behavior:smooth;}
+html{scroll-behavior:smooth; overflow-x:hidden;}
 @media (prefers-reduced-motion: reduce){
   html{scroll-behavior:auto;}
   *{animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important;}
@@ -62,6 +62,7 @@ html{scroll-behavior:smooth;}
 
 body{
   margin:0;
+  overflow-x:hidden;
   background:
     radial-gradient(ellipse 900px 500px at 15% -10%, #1a1710 0%, transparent 60%),
     radial-gradient(ellipse 700px 500px at 100% 10%, #14130d 0%, transparent 55%),
@@ -254,7 +255,7 @@ h1.title em{
 /* ---------- SECTION generic ---------- */
 section{padding:88px 0;}
 .section-head{
-  max-width:640px; margin:0 0 46px;
+  max-width:820px; margin:0 0 46px;
 }
 .section-num{
   font-family:'JetBrains Mono', monospace; font-size:11.5px; color:var(--text-faint);
@@ -266,7 +267,7 @@ h2.section-title{
   color:var(--paper); margin:0 0 16px; line-height:1.08;
 }
 .section-lede{
-  font-size:15.5px; color:var(--text-dim); max-width:62ch; margin:0;
+  font-size:15.5px; color:var(--text-dim); max-width:70ch; margin:0;
 }
 hr.rule{border:none; border-top:1px solid var(--line-soft); margin:0;}
 
@@ -364,7 +365,8 @@ hr.rule{border:none; border-top:1px solid var(--line-soft); margin:0;}
   display:flex; align-items:flex-start; justify-content:space-between; gap:20px;
   padding:22px 24px; border-bottom:1px solid var(--line-soft); flex-shrink:0;
 }
-.modal-head h3{font-size:19px; color:var(--paper); margin:10px 0 4px; font-weight:700;}
+.modal-head > div{min-width:0;}
+.modal-head h3{font-size:19px; color:var(--paper); margin:10px 0 4px; font-weight:700; word-break:break-word;}
 .modal-head p{font-size:11.5px; color:var(--text-faint); margin:0;}
 .modal-close{
   background:none; border:1px solid var(--line-soft); color:var(--text-dim);
@@ -396,10 +398,11 @@ hr.rule{border:none; border-top:1px solid var(--line-soft); margin:0;}
 }
 .control-group{display:flex; flex-direction:column; gap:9px;}
 .control-label{font-family:'JetBrains Mono',monospace; font-size:10.5px; text-transform:uppercase; letter-spacing:.08em; color:var(--text-faint);}
-.seg{display:flex; gap:2px; background:var(--bg); border:1px solid var(--line-soft); border-radius:20px; padding:2px;}
+.seg{display:flex; gap:2px; background:var(--bg); border:1px solid var(--line-soft); border-radius:20px; padding:2px; overflow-x:auto; -webkit-overflow-scrolling:touch; scrollbar-width:none; -ms-overflow-style:none; max-width:100%;}
+.seg::-webkit-scrollbar{display:none;}
 .seg button{
   background:none; border:none; color:var(--text-dim); font-size:12.5px; padding:7px 14px; border-radius:16px;
-  cursor:pointer; transition:all .15s; white-space:nowrap;
+  cursor:pointer; transition:all .15s; white-space:nowrap; flex-shrink:0;
 }
 .seg button.active{background:var(--paper); color:#141209; font-weight:500;}
 .seg button:not(.active):hover{color:var(--paper);}
@@ -436,8 +439,21 @@ hr.rule{border:none; border-top:1px solid var(--line-soft); margin:0;}
 .prov-tabs button.active{background:var(--bg-1); color:var(--paper); border-color:var(--paper-dim);}
 .prov-panel{display:none;}
 .prov-panel.active{display:block;}
-.prov-intro{font-size:14px; color:var(--text-dim); max-width:62ch; margin:0 0 24px;}
-.heatmap-wrap{overflow-x:auto;}
+.prov-intro{font-size:14px; color:var(--text-dim); max-width:62ch; margin:0 0 20px;}
+
+.prov-toolbar{
+  display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap;
+  gap:14px; margin-bottom:18px;
+}
+.zlegend{display:flex; align-items:center; gap:10px; flex-wrap:wrap;}
+.zlegend-label{font-family:'JetBrains Mono',monospace; font-size:10.5px; color:var(--text-faint); text-transform:uppercase; letter-spacing:.05em;}
+.zlegend-scale{display:flex; align-items:center; gap:1px;}
+.zlegend-scale i{width:16px; height:10px; display:block;}
+.zlegend-scale i:first-child{border-radius:2px 0 0 2px;}
+.zlegend-scale i:last-child{border-radius:0 2px 2px 0;}
+.zlegend-ends{display:flex; justify-content:space-between; font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--text-faint); width:98px;}
+
+.heatmap-wrap{overflow-x:auto; -webkit-overflow-scrolling:touch;}
 .heatmap{width:100%; border-collapse:collapse; min-width:640px;}
 .heatmap th, .heatmap td{padding:0; text-align:center;}
 .heatmap thead th{
@@ -445,9 +461,13 @@ hr.rule{border:none; border-top:1px solid var(--line-soft); margin:0;}
   padding:0 0 10px; font-weight:500;
 }
 .heatmap thead th.reform-year{color:var(--paper);}
+.heatmap thead th:first-child{position:sticky; left:0; z-index:2; background:var(--bg-1);}
 .heatmap tbody th{
   text-align:left; font-size:12.5px; color:var(--text-dim); font-weight:400;
   padding:8px 14px 8px 0; white-space:nowrap;
+  position:sticky; left:0; z-index:1;
+  background:var(--bg-1);
+  box-shadow:6px 0 8px -6px rgba(0,0,0,.55);
 }
 .heatmap td{padding:3px;}
 .hcell{
@@ -461,6 +481,19 @@ hr.rule{border:none; border-top:1px solid var(--line-soft); margin:0;}
 .prov-note{background:var(--card); border:1px solid var(--line-soft); padding:14px 16px; border-radius:2px;}
 .prov-note b{display:block; font-size:12px; color:var(--paper-dim); margin-bottom:5px;}
 .prov-note span{font-size:12px; color:var(--text-dim); line-height:1.45;}
+
+.trend-holder{position:relative; height:340px; margin-bottom:4px;}
+.trend-legend{display:flex; flex-wrap:wrap; gap:10px 16px; margin-bottom:16px;}
+.trend-legend span{display:inline-flex; align-items:center; gap:6px; font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--text-dim);}
+.trend-legend i{width:14px; height:0; border-top:2.4px solid; display:inline-block;}
+.trend-legend i.dash{border-top-style:dashed;}
+
+.map-callout{
+  display:flex; align-items:center; gap:22px; flex-wrap:wrap;
+  margin-top:36px; padding:24px 28px; background:var(--card); border:1px solid var(--line-soft); border-radius:2px;
+}
+.map-callout .btn{flex-shrink:0;}
+.map-callout p{font-size:12.5px; color:var(--text-dim); margin:0; max-width:48ch; line-height:1.55;}
 
 /* ---------- HYPOTHESES ---------- */
 .hyp-grid{display:flex; flex-direction:column; gap:1px; background:var(--line-soft); border:1px solid var(--line-soft); border-radius:var(--radius-lg); overflow:hidden;}
@@ -560,7 +593,20 @@ footer{
   .hyp-card{grid-template-columns:1fr; gap:12px;}
   .verdict{width:fit-content;}
   .prov-notes{grid-template-columns:1fr;}
-  .explorer{padding:20px;}
+  .explorer{padding:18px 14px;}
+  .chart-holder{height:280px;}
+  .explorer-controls{gap:16px;}
+  .control-group{width:100%;}
+  .seg{width:100%;}
+  .checks{gap:6px;}
+  .modal-head{padding:16px 16px;}
+  .modal-head h3{font-size:16px;}
+  .modal-img-wrap{padding:12px;}
+  .footer-top{align-items:flex-start;}
+  .trend-holder{height:260px;}
+  .zlegend{gap:8px;}
+  .prov-toolbar{margin-bottom:14px;}
+  .map-callout{flex-direction:column; align-items:flex-start; padding:20px 22px; gap:16px;}
 }
 </style>
 </head>
@@ -796,10 +842,16 @@ footer{
       <div class="chart-holder"><canvas id="mainChart"></canvas></div>
       <div class="chart-caption">
         <span id="chartNote">Serie histórica 2003–2023. Elaboración propia a partir de datos oficiales.</span>
-        <span class="reform-key">
+        <span class="reform-key" id="reformKey">
           <span><i style="background:var(--cordoba)"></i>Córdoba → BUS en 2011</span>
           <span><i style="background:var(--santafe)"></i>Santa Fe → BUT en 2011</span>
           <span><i style="background:var(--neuquen)"></i>Neuquén → BUE en 2019</span>
+        </span>
+        <span class="reform-key" id="ballotKey" style="display:none;">
+          <span><i style="background:var(--bp)"></i>BP — Boleta Partidaria</span>
+          <span><i style="background:var(--bus)"></i>BUS — Boleta Única de Sufragio</span>
+          <span><i style="background:var(--but)"></i>BUT — Boleta Única por Tramos</span>
+          <span><i style="background:var(--bue)"></i>BUE — Boleta Única Electrónica</span>
         </span>
       </div>
     </div>
@@ -814,10 +866,13 @@ footer{
       <p class="section-num">05 — Antes y después de la reforma</p>
       <h2 class="section-title">Provincias bajo la lupa</h2>
       <p class="section-lede">Para cada provincia que modificó su instrumento electoral, el puntaje Z de cada dimensión muestra cuánto se aparta cada elección de la media histórica del propio distrito. Más intensidad de color equivale a mayor apartamiento; el borde marcado señala el año de la reforma.</p>
-      <a href="https://gsagarraga.github.io/boletas.argentina/" target="_blank" rel="noopener" class="btn btn-ghost" style="margin-top:20px;">Mapa electoral de provincias de Argentina ↗</a>
     </div>
     <div class="prov-tabs" id="provTabs"></div>
     <div id="provPanels"></div>
+    <div class="map-callout">
+      <a href="https://gsagarraga.github.io/boletas.argentina/" target="_blank" rel="noopener" class="btn btn-ghost">Mapa electoral de provincias de Argentina ↗</a>
+      <p>Un proyecto complementario del mismo autor: un mapa interactivo para recorrer, provincia por provincia, el instrumento de votación utilizado en cada distrito argentino.</p>
+    </div>
   </div>
 </section>
 
@@ -1058,7 +1113,7 @@ const HYPOTHESES = [
     text:'Se espera una relación diferencial según la boleta, distinta entre el cruce "entre partidos" y el cruce "con voto en blanco".',
     expected:['BUT','BUE','BUS','BP'],
     observed:['BUT','BUE','BUS','BP'],
-    verdict:'mixed', verdictLabel:'Confirmada / con inversión',
+    verdict:'confirmed', verdictLabel:'Confirmada, con matices',
     note:'El cruce entre partidos coincide exactamente con lo esperado. El cruce con voto en blanco se invierte: la BUS termina siendo la que más lo concentra.'
   },
   {
@@ -1285,6 +1340,9 @@ function renderChart(){
   const lineStyle = [ {dash:[], width:2.4}, {dash:[5,3], width:2.2} ];
   const pointStyle = ['circle','rectRot'];
 
+  document.getElementById('reformKey').style.display = state.mode==='boleta' ? 'none' : 'flex';
+  document.getElementById('ballotKey').style.display = state.mode==='boleta' ? 'flex' : 'none';
+
   if(state.mode==='serie' || state.mode==='tendencia'){
     const datasets = [];
     provKeys.forEach(pk=>{
@@ -1355,21 +1413,42 @@ function renderChart(){
 
   if(state.mode==='boleta'){
     const types = ['BP','BUS','BUT','BUE'];
-    const offsets = {cordoba:-0.16, entrerios:-0.05, santafe:0.05, neuquen:0.16};
-    const datasets = [];
+
+    // Every point sits exactly on its category's vertical line (x = category
+    // index), matching the strip-plot style of the original thesis figures.
+    // Color follows the ballot type, not the province.
+    const raw = [];
     provKeys.forEach(pk=>{
       const p = PROV[pk];
       metricKeys.forEach((mk,mi)=>{
         const m = DATA[mk];
-        const pts = YEARS.map((yr,i)=>{
+        YEARS.forEach((yr,i)=>{
           const bt = ballotTypeFor(pk, yr);
-          return { x: types.indexOf(bt) + offsets[pk], y: m.values[pk][i], year:yr, ballot:bt, prov:p.name, sub:subLabels[mi] };
+          raw.push({ bt, year:yr, value:m.values[pk][i], prov:p.name, sub:subLabels[mi], mi, x:types.indexOf(bt) });
         });
-        const label = isBoth ? `${p.name} — ${subLabels[mi]}` : p.name;
-        datasets.push({ label, data:pts, backgroundColor:p.color, borderColor:p.color,
-          pointRadius: isBoth && mi===1 ? 5.5 : 6, pointHoverRadius:8, pointStyle:pointStyle[mi] });
       });
     });
+
+    // 2) one Chart.js dataset per (province, sub-metric) pairing so the
+    //    "Series visibles" checks keep filtering by province, but each
+    //    point is colored by its own ballot type (scriptable color).
+    const datasets = [];
+    provKeys.forEach(pk=>{
+      const p = PROV[pk];
+      metricKeys.forEach((mk,mi)=>{
+        const pts = raw.filter(pt=> pt.prov===p.name && pt.mi===mi)
+          .map(pt=>({ x:pt.x, y:pt.value, year:pt.year, ballot:pt.bt, prov:pt.prov, sub:pt.sub }));
+        const label = isBoth ? `${p.name} — ${subLabels[mi]}` : p.name;
+        datasets.push({
+          label, data:pts,
+          backgroundColor:(c)=> c.raw ? BALLOT_COLORS[c.raw.ballot]+'d9' : '#8883',
+          borderColor:'#0a0a08',
+          borderWidth:1.4,
+          pointRadius: isBoth && mi===1 ? 5.5 : 6, pointHoverRadius:8, pointStyle:pointStyle[mi],
+        });
+      });
+    });
+
     chart = new Chart(ctx, {
       type:'scatter',
       data:{ datasets },
@@ -1385,13 +1464,13 @@ function renderChart(){
             titleColor:'#f2ecd9', bodyColor:'#e7e1cf', padding:10,
             titleFont:{family:'JetBrains Mono', size:11}, bodyFont:{family:'JetBrains Mono', size:11},
             callbacks:{
-              title:(items)=> items[0] ? `${items[0].raw.prov}${items[0].raw.sub? ' — '+items[0].raw.sub:''} · ${items[0].raw.year}` : '',
-              label:(c)=> `${c.raw.ballot} — ${fmt(c.raw.y, meta.unit)}`
+              title:(items)=> items[0] ? `${items[0].raw.ballot} · ${items[0].raw.prov}${items[0].raw.sub? ' — '+items[0].raw.sub:''} · ${items[0].raw.year}` : '',
+              label:(c)=> fmt(c.raw.y, meta.unit)
             } } }
       })
     });
     const dimLabel = isBoth ? `${g.label} (${subLabels.join(' y ')})` : meta.label;
-    chartNote.textContent = `Valores agrupados por tipo de boleta utilizada · ${dimLabel}. Cada punto es una elección provincial.${isBoth?' Círculo = '+subLabels[0]+', rombo = '+subLabels[1]+'.':''}`;
+    chartNote.textContent = `Cada punto es una elección provincial, coloreada según el tipo de boleta vigente en ese momento · ${dimLabel}.${isBoth?' Círculo = '+subLabels[0]+', rombo = '+subLabels[1]+'.':''}`;
   }
 }
 
@@ -1401,24 +1480,31 @@ function renderChart(){
 const provTabs = document.getElementById('provTabs');
 const provPanels = document.getElementById('provPanels');
 const HEAT_PROVS = ['cordoba','santafe','neuquen'];
+const provView = {}; // 'heat' | 'trend' per province
 
-HEAT_PROVS.forEach((pk,i)=>{
+const DIM_LINE_STYLE = {
+  vbe:{color:'celeste', dash:false}, vbl:{color:'celeste', dash:true},
+  vne:{color:'rojo', dash:false},    vnl:{color:'rojo', dash:true},
+  vcp:{color:'amarillo', dash:false},vcb:{color:'amarillo', dash:true},
+  part:{color:'verde', dash:false},
+};
+const HUE = {celeste:'#4fa6d9', rojo:'#d8503c', amarillo:'#d9aa35', verde:'#4f9668'};
+
+let trendCharts = {};
+
+function renderZLegend(){
+  const stops = [0,0.3,0.6,1];
+  const scaleHtml = stops.map(a=>`<i style="background:rgba(242,236,217,${(0.12+a*0.72).toFixed(2)})"></i>`).join('');
+  return `
+    <div class="zlegend">
+      <span class="zlegend-label">Media histórica</span>
+      <div class="zlegend-scale">${scaleHtml}</div>
+      <span class="zlegend-label">Mayor apartamiento (± Z)</span>
+    </div>`;
+}
+
+function renderHeatTable(pk){
   const p = PROV[pk];
-  const b = document.createElement('button');
-  b.innerHTML = `<span class="dot" style="background:${p.color}"></span>${p.name}`;
-  b.className = i===0 ? 'active':'';
-  b.onclick = ()=>{
-    [...provTabs.children].forEach(x=>x.classList.remove('active'));
-    b.classList.add('active');
-    [...provPanels.children].forEach(x=>x.classList.remove('active'));
-    document.getElementById('panel-'+pk).classList.add('active');
-  };
-  provTabs.appendChild(b);
-
-  const panel = document.createElement('div');
-  panel.className = 'prov-panel' + (i===0?' active':'');
-  panel.id = 'panel-'+pk;
-
   let theadYears = YEARS.map(y=> `<th class="${y===p.reform?'reform-year':''}">${y}${y===p.reform?' ★':''}</th>`).join('');
   let rows = DIM_ROWS.map(d=>{
     const cells = ZSCORES[pk][d.key].map((z,yi)=>{
@@ -1427,20 +1513,147 @@ HEAT_PROVS.forEach((pk,i)=>{
     }).join('');
     return `<tr><th>${d.label}</th>${cells}</tr>`;
   }).join('');
-
-  const notesHtml = PROV_NOTES[pk].map(n=>`<div class="prov-note"><b>${n.t}</b><span>${n.d}</span></div>`).join('');
-
-  panel.innerHTML = `
-    <p class="prov-intro">${p.name} adoptó la <b style="color:${p.color}">${p.ballot}</b> en <b>${p.reform}</b>. Los valores son puntaje Z por fila: cuánto se aleja cada elección del promedio histórico de esa dimensión en la propia provincia.</p>
+  return `
+    <div class="prov-toolbar">
+      ${renderZLegend()}
+    </div>
     <div class="heatmap-wrap">
       <table class="heatmap">
         <thead><tr><th></th>${theadYears}</tr></thead>
         <tbody>${rows}</tbody>
       </table>
+    </div>`;
+}
+
+function renderTrendView(pk){
+  return `
+    <div class="trend-legend" id="trendLegend-${pk}"></div>
+    <div class="trend-holder"><canvas id="trendChart-${pk}"></canvas></div>
+  `;
+}
+
+function buildTrendChart(pk){
+  const p = PROV[pk];
+  const canvas = document.getElementById('trendChart-'+pk);
+  if(!canvas) return;
+  if(trendCharts[pk]) trendCharts[pk].destroy();
+
+  const legend = document.getElementById('trendLegend-'+pk);
+  legend.innerHTML = DIM_ROWS.map(d=>{
+    const st = DIM_LINE_STYLE[d.key];
+    return `<span><i class="${st.dash?'dash':''}" style="border-color:${HUE[st.color]}"></i>${d.label}</span>`;
+  }).join('');
+
+  const datasets = DIM_ROWS.map(d=>{
+    const st = DIM_LINE_STYLE[d.key];
+    return {
+      label:d.label, data:ZSCORES[pk][d.key], borderColor:HUE[st.color],
+      borderDash: st.dash ? [5,3] : [], borderWidth:2.2,
+      pointRadius:3, pointHoverRadius:5, pointBackgroundColor:HUE[st.color],
+      tension:0.25,
+    };
+  });
+
+  trendCharts[pk] = new Chart(canvas, {
+    type:'line',
+    data:{ labels:YEARS, datasets },
+    options: baseOptions({
+      layout:{ padding:{ top:22 } },
+      scales:{
+        x:{ grid:axisGrid(), ticks:axisTicks({}) },
+        y:{ grid:axisGrid(), ticks:axisTicks({ callback:v=> (v>0?'+':'')+v }) }
+      },
+      plugins:{ legend:{display:false},
+        tooltip:{ backgroundColor:'#1c1a13', borderColor:'#33301f', borderWidth:1,
+          titleColor:'#f2ecd9', bodyColor:'#e7e1cf', padding:10,
+          titleFont:{family:'JetBrains Mono', size:11}, bodyFont:{family:'JetBrains Mono', size:11},
+          callbacks:{ label:(c)=> `${c.dataset.label}: ${c.parsed.y>0?'+':''}${c.parsed.y.toFixed(2)}` } } }
+    }),
+    plugins:[{
+      id:'reformMarker-'+pk,
+      afterDraw(chart){
+        if(p.reform == null) return;
+        const {ctx, chartArea, scales} = chart;
+        const idx = YEARS.indexOf(p.reform);
+        if(idx === -1) return;
+        const x = scales.x.getPixelForValue(p.reform, idx);
+        if(x < chartArea.left || x > chartArea.right) return;
+        ctx.save();
+        ctx.strokeStyle = 'rgba(242,236,217,0.5)';
+        ctx.lineWidth = 1.3;
+        ctx.setLineDash([4,4]);
+        ctx.beginPath();
+        ctx.moveTo(x, chartArea.top);
+        ctx.lineTo(x, chartArea.bottom);
+        ctx.stroke();
+        ctx.setLineDash([]);
+
+        const label = 'Reforma → '+p.ballot;
+        ctx.font = "10px 'JetBrains Mono', monospace";
+        const tw = ctx.measureText(label).width;
+        let lx = x - tw/2 - 5;
+        lx = Math.max(chartArea.left, Math.min(lx, chartArea.right - tw - 10));
+        ctx.fillStyle = '#141209';
+        ctx.fillRect(lx, chartArea.top - 20, tw + 10, 16);
+        ctx.fillStyle = '#f2ecd9';
+        ctx.textAlign = 'left';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(label, lx + 5, chartArea.top - 12);
+        ctx.restore();
+      }
+    }]
+  });
+}
+
+function renderPanelBody(pk){
+  const view = provView[pk] || 'heat';
+  const body = document.getElementById('panelBody-'+pk);
+  body.innerHTML = view==='heat' ? renderHeatTable(pk) : renderTrendView(pk);
+  if(view==='trend') buildTrendChart(pk);
+}
+
+HEAT_PROVS.forEach((pk,i)=>{
+  const p = PROV[pk];
+  provView[pk] = 'heat';
+  const b = document.createElement('button');
+  b.innerHTML = `<span class="dot" style="background:${p.color}"></span>${p.name}`;
+  b.className = i===0 ? 'active':'';
+  b.onclick = ()=>{
+    [...provTabs.children].forEach(x=>x.classList.remove('active'));
+    b.classList.add('active');
+    [...provPanels.children].forEach(x=>x.classList.remove('active'));
+    document.getElementById('panel-'+pk).classList.add('active');
+    if(provView[pk]==='trend') buildTrendChart(pk);
+  };
+  provTabs.appendChild(b);
+
+  const panel = document.createElement('div');
+  panel.className = 'prov-panel' + (i===0?' active':'');
+  panel.id = 'panel-'+pk;
+
+  const notesHtml = PROV_NOTES[pk].map(n=>`<div class="prov-note"><b>${n.t}</b><span>${n.d}</span></div>`).join('');
+
+  panel.innerHTML = `
+    <p class="prov-intro">${p.name} adoptó la <b style="color:${p.color}">${p.ballot}</b> en <b>${p.reform}</b>. Los valores son puntaje Z por fila: cuánto se aleja cada elección del promedio histórico de esa dimensión en la propia provincia. El color indica la provincia; su intensidad, la magnitud del apartamiento (mayor o menor a la media), sin importar el signo — el signo va en el número de cada celda.</p>
+    <div class="seg" id="viewSeg-${pk}" style="margin-bottom:18px;">
+      <button data-view="heat" class="active">Mapa de calor</button>
+      <button data-view="trend">Tendencia por dimensión</button>
     </div>
+    <div id="panelBody-${pk}"></div>
     <div class="prov-notes">${notesHtml}</div>
   `;
   provPanels.appendChild(panel);
+
+  const seg = panel.querySelector('#viewSeg-'+pk);
+  [...seg.children].forEach(btn=>{
+    btn.onclick = ()=>{
+      [...seg.children].forEach(x=>x.classList.remove('active'));
+      btn.classList.add('active');
+      provView[pk] = btn.dataset.view;
+      renderPanelBody(pk);
+    };
+  });
+  renderPanelBody(pk);
 });
 
 /* =====================================================================
