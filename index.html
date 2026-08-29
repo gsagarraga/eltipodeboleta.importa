@@ -96,21 +96,15 @@ button{font-family:inherit;}
 }
 .topnav-inner{
   max-width:1180px; margin:0 auto; padding:0 28px;
-  display:flex; align-items:center; justify-content:space-between;
+  display:flex; align-items:center; justify-content:center;
   height:56px; gap:24px;
 }
-.brand{
-  display:flex; align-items:center; gap:10px;
-  font-size:13px; letter-spacing:.02em; color:var(--paper-dim);
-  white-space:nowrap;
-  flex-shrink:0;
-}
-.brand svg{flex-shrink:0;}
 .navlinks{
   display:flex; gap:2px;
   overflow-x:auto;
   min-width:0;
   flex:1 1 auto;
+  justify-content:center;
   -webkit-overflow-scrolling:touch;
   scrollbar-width:none;
   -ms-overflow-style:none;
@@ -130,6 +124,34 @@ button{font-family:inherit;}
   transition:color .15s, background .15s;
 }
 .navlinks a:hover{color:var(--paper); background:var(--card);}
+
+.nav-toggle{
+  display:none;
+  align-items:center; gap:8px;
+  background:none; border:1px solid var(--line-soft); color:var(--text-dim);
+  font-family:'JetBrains Mono', monospace; font-size:11px; text-transform:uppercase; letter-spacing:.06em;
+  padding:8px 14px; border-radius:20px; cursor:pointer; transition:all .15s;
+  width:100%; justify-content:space-between;
+}
+.nav-toggle:hover{color:var(--paper); border-color:var(--paper-dim);}
+.nav-toggle svg{flex-shrink:0; transition:transform .2s ease;}
+.nav-toggle[aria-expanded="true"] svg{transform:rotate(90deg);}
+
+.nav-dropdown{
+  max-height:0; overflow:hidden;
+  background:var(--bg-1); border-bottom:0 solid var(--line-soft);
+  display:flex; flex-direction:column;
+  transition:max-height .28s ease;
+}
+.nav-dropdown.open{ max-height:420px; border-bottom-width:1px; }
+.nav-dropdown a{
+  font-family:'JetBrains Mono', monospace; font-size:12.5px; text-transform:uppercase; letter-spacing:.06em;
+  color:var(--text-dim); text-decoration:none;
+  padding:15px 18px; border-top:1px solid var(--line-soft);
+  transition:color .15s, background .15s;
+}
+.nav-dropdown a:first-child{border-top:none;}
+.nav-dropdown a:hover, .nav-dropdown a:active{color:var(--paper); background:var(--card);}
 
 /* ---------- HERO ---------- */
 .hero{
@@ -344,7 +366,7 @@ hr.rule{border:none; border-top:1px solid var(--line-soft); margin:0;}
 /* ---------- MODAL ---------- */
 .modal-overlay{
   position:fixed; inset:0; z-index:1000;
-  background:rgba(6,6,4,0.86); backdrop-filter:blur(4px);
+  background:rgba(6,6,4,0.9); backdrop-filter:blur(4px);
   display:flex; align-items:center; justify-content:center;
   padding:28px;
   opacity:0; pointer-events:none;
@@ -353,12 +375,12 @@ hr.rule{border:none; border-top:1px solid var(--line-soft); margin:0;}
 .modal-overlay.open{opacity:1; pointer-events:auto;}
 .modal-box{
   background:var(--bg-1); border:1px solid var(--line); border-radius:3px;
-  max-width:920px; width:100%; max-height:88vh;
+  width:fit-content; max-width:min(920px, 92vw); max-height:88vh;
   display:flex; flex-direction:column;
   overflow:hidden;
   transform:translateY(10px) scale(.98);
   transition:transform .22s ease;
-  box-shadow:0 40px 100px -20px rgba(0,0,0,.8);
+  box-shadow:0 40px 100px -20px rgba(0,0,0,.85);
 }
 .modal-overlay.open .modal-box{transform:translateY(0) scale(1);}
 .modal-head{
@@ -375,16 +397,17 @@ hr.rule{border:none; border-top:1px solid var(--line-soft); margin:0;}
 }
 .modal-close:hover{color:var(--paper); border-color:var(--paper-dim);}
 .modal-img-wrap{
-  overflow:auto; padding:20px; background:repeating-linear-gradient(45deg, #100f0a 0 12px, #141209 12px 24px);
-  display:flex; align-items:flex-start; justify-content:center;
+  overflow:auto; padding:20px; background:var(--bg);
+  display:flex; align-items:center; justify-content:center;
 }
 .modal-img-wrap img{
-  max-width:100%; height:auto; border-radius:2px; box-shadow:0 20px 50px -10px rgba(0,0,0,.6);
+  max-width:100%; max-height:68vh; width:auto; height:auto;
+  border-radius:2px; box-shadow:0 20px 50px -10px rgba(0,0,0,.6);
   display:block;
 }
 @media (max-width:600px){
-  .modal-overlay{padding:0;}
-  .modal-box{max-height:100vh; height:100%; border-radius:0;}
+  .modal-overlay{padding:14px;}
+  .modal-box{max-width:100%; max-height:92vh; border-radius:3px;}
 }
 
 /* ---------- EXPLORER ---------- */
@@ -461,10 +484,10 @@ hr.rule{border:none; border-top:1px solid var(--line-soft); margin:0;}
   padding:0 0 10px; font-weight:500;
 }
 .heatmap thead th.reform-year{color:var(--paper);}
-.heatmap thead th:first-child{position:sticky; left:0; z-index:2; background:var(--bg-1);}
+.heatmap thead th:first-child{position:sticky; left:0; z-index:2; background:var(--bg-1); width:1%;}
 .heatmap tbody th{
   text-align:left; font-size:12.5px; color:var(--text-dim); font-weight:400;
-  padding:8px 14px 8px 0; white-space:nowrap;
+  padding:8px 14px 8px 0; white-space:nowrap; width:1%;
   position:sticky; left:0; z-index:1;
   background:var(--bg-1);
   box-shadow:6px 0 8px -6px rgba(0,0,0,.55);
@@ -483,10 +506,27 @@ hr.rule{border:none; border-top:1px solid var(--line-soft); margin:0;}
 .prov-note span{font-size:12px; color:var(--text-dim); line-height:1.45;}
 
 .trend-holder{position:relative; height:340px; margin-bottom:4px;}
-.trend-legend{display:flex; flex-wrap:wrap; gap:10px 16px; margin-bottom:16px;}
-.trend-legend span{display:inline-flex; align-items:center; gap:6px; font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--text-dim);}
-.trend-legend i{width:14px; height:0; border-top:2.4px solid; display:inline-block;}
-.trend-legend i.dash{border-top-style:dashed;}
+.trend-legend{
+  display:flex; flex-direction:column; gap:9px;
+  margin-bottom:18px; padding:14px 16px;
+  background:var(--card); border:1px solid var(--line-soft); border-radius:2px;
+}
+.tl-row{display:flex; align-items:center; flex-wrap:wrap; gap:6px 16px;}
+.tl-name{
+  font-family:'JetBrains Mono',monospace; font-size:11px; font-weight:600;
+  min-width:118px; flex-shrink:0;
+}
+.tl-sub{
+  display:inline-flex; align-items:center; gap:6px;
+  font-family:'JetBrains Mono',monospace; font-size:10.5px; color:var(--text-dim);
+}
+.tl-sub i{width:14px; height:0; border-top:2.4px solid; display:inline-block; flex-shrink:0;}
+.tl-sub i.dash{border-top-style:dashed;}
+.reform-note{
+  display:flex; align-items:center; gap:6px;
+  font-family:'JetBrains Mono',monospace; font-size:10.5px; color:var(--text-faint);
+  margin-top:10px; padding-top:10px; border-top:1px solid var(--line-soft);
+}
 
 .map-callout{
   display:flex; align-items:center; gap:22px; flex-wrap:wrap;
@@ -575,6 +615,14 @@ footer{
 .footer-meta a{color:var(--paper-dim); text-decoration:none; border-bottom:1px solid var(--line);}
 
 /* ---------- RESPONSIVE ---------- */
+@media (min-width:1440px){
+  .wrap{max-width:1360px;}
+  .section-head{max-width:960px;}
+  .section-lede{max-width:78ch;}
+  .hero-sub{max-width:68ch;}
+  .context-copy p{max-width:56ch;}
+  .conc-copy p{max-width:64ch;}
+}
 @media (max-width:920px){
   .hero-grid{grid-template-columns:1fr; gap:44px;}
   .ballot-figure{order:-1; max-width:260px; margin:0 auto;}
@@ -588,8 +636,10 @@ footer{
 @media (max-width:600px){
   .wrap{padding:0 18px;}
   .topnav-inner{padding:0 18px;}
+  .navlinks{display:none;}
+  .nav-toggle{display:flex;}
   section{padding:64px 0;}
-  .ballots-grid{grid-template-columns:1fr 1fr;}
+  .ballots-grid{grid-template-columns:1fr;}
   .hyp-card{grid-template-columns:1fr; gap:12px;}
   .verdict{width:fit-content;}
   .prov-notes{grid-template-columns:1fr;}
@@ -604,8 +654,13 @@ footer{
   .modal-img-wrap{padding:12px;}
   .footer-top{align-items:flex-start;}
   .trend-holder{height:260px;}
-  .zlegend{gap:8px;}
+  .zlegend{gap:6px;}
+  .zlegend-label{font-size:10px;}
   .prov-toolbar{margin-bottom:14px;}
+  .trend-legend{padding:12px 14px; gap:10px;}
+  .tl-row{gap:5px 12px;}
+  .tl-name{min-width:100%; margin-bottom:1px;}
+  .prov-tabs button{padding:9px 14px; font-size:12.5px;}
   .map-callout{flex-direction:column; align-items:flex-start; padding:20px 22px; gap:16px;}
 }
 </style>
@@ -614,11 +669,7 @@ footer{
 
 <nav class="topnav">
   <div class="topnav-inner">
-    <div class="brand">
-      <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="1" y="1" width="16" height="16" rx="1.5" stroke="#b8ae91" stroke-width="1.3"/><path d="M9 9v-3M9 9l2.2 2.2" stroke="#b8ae91" stroke-width="1.3" stroke-linecap="round"/></svg>
-      TFG&nbsp;·&nbsp;Boletas Electorales
-    </div>
-    <div class="navlinks">
+    <div class="navlinks" id="navLinks">
       <a href="#estudio">El estudio</a>
       <a href="#antecedentes">Antecedentes</a>
       <a href="#boletas">Las boletas</a>
@@ -627,6 +678,19 @@ footer{
       <a href="#hipotesis">Hipótesis</a>
       <a href="#conclusiones">Conclusiones</a>
     </div>
+    <button class="nav-toggle" id="navToggle" aria-label="Abrir menú" aria-expanded="false" aria-controls="navDropdown">
+      <span>Menú</span>
+      <svg width="15" height="15" viewBox="0 0 16 16" fill="none" id="navToggleIcon"><path d="M2 4h12M2 8h12M2 12h12" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+    </button>
+  </div>
+  <div class="nav-dropdown" id="navDropdown">
+    <a href="#estudio">El estudio</a>
+    <a href="#antecedentes">Antecedentes</a>
+    <a href="#boletas">Las boletas</a>
+    <a href="#resultados">Resultados</a>
+    <a href="#provincias">Provincias</a>
+    <a href="#hipotesis">Hipótesis</a>
+    <a href="#conclusiones">Conclusiones</a>
   </div>
 </nav>
 
@@ -668,9 +732,10 @@ footer{
         <p class="section-num">01 — El punto de partida</p>
         <h2 class="section-title">¿Una anomalía en el escrutinio de 2023?</h2>
         <div class="context-copy">
-          <p>El 25 de junio de 2023, en las elecciones provinciales de Córdoba, el voto en blanco para gobernador y vicegobernador alcanzó <strong>4,93%</strong>. Comparado con el mismo distrito en las elecciones nacionales de ese año —1,83%, 0,81% y 1,59% en las tres instancias— el número ya llamaba la atención.</p>
-          <p>Pero la diferencia más marcada aparecía puertas adentro de la misma boleta: en esa elección, el voto en blanco trepó a <strong>15,94%</strong> en legislador de distrito único, <strong>14,63%</strong> en legislador departamental y <strong>16,54%</strong> en Tribunal de Cuentas. Revisando 2011, 2015 y 2019 el patrón se repetía: el tramo de gobernador siempre concentra muchos menos votos en blanco que los tramos legislativos, con la Boleta Única de Sufragio (BUS), aplicada desde 2011 en la provincia.</p>
-          <p>De esa pregunta —¿por qué esta disparidad entre tramos de una misma boleta?— surge el estudio: una comparación subnacional entre <strong>Córdoba, Entre Ríos, Santa Fe y Neuquén</strong>, cuatro provincias que usaron —o no— distintos instrumentos de votación entre 2003 y 2023, para describir su relación con el voto en blanco, el voto nulo, el voto cruzado y la participación electoral.</p>
+          <p>El 25 de junio de 2023, en las elecciones provinciales de Córdoba, el voto en blanco para gobernador y vicegobernador alcanzó <strong>4,93%</strong>. Comparado con el mismo distrito en las elecciones presidenciales de ese año —1,83%, 0,81% y 1,59% en las tres instancias— el número resultaba llamativo.</p>
+          <p>Pero la diferencia más marcada aparecía al observar las otras categorías de cargos electivos: el voto en blanco trepó a <strong>15,94%</strong> en legislador de distrito único, <strong>14,63%</strong> en legislador departamental y <strong>16,54%</strong> en Tribunal de Cuentas. Revisando 2011, 2015 y 2019 el patrón se repetía: el tramo de gobernador siempre concentra muchos menos votos en blanco que los tramos legislativos.</p>
+          <p>Una primera explicación es intuitiva: el elector suele saber menos sobre quién compite por una banca legislativa que sobre la fórmula a gobernador, y por eso dejaría esas categorías en blanco con más frecuencia. Pero esa hipótesis no explica por qué el salto se profundiza justo a partir de 2011, cuando Córdoba reemplaza la boleta partidaria por la BUS: ¿por qué esta disparidad entre tramos de una misma boleta?</p>
+          <p>De esa pregunta surge el estudio: una comparación subnacional entre <strong>Córdoba, Entre Ríos, Santa Fe y Neuquén</strong>, cuatro provincias que usaron —o no— distintos instrumentos de votación entre 2003 y 2023, para describir su relación con el voto en blanco, el voto nulo, el voto cruzado y la participación electoral.</p>
         </div>
       </div>
       <div class="spark-card">
@@ -679,7 +744,6 @@ footer{
         <div class="spark-row"><span class="spark-label">VB Legislador distrito único</span><span class="spark-value hi">15,94%</span></div>
         <div class="spark-row"><span class="spark-label">VB Legislador departamental</span><span class="spark-value hi">14,63%</span></div>
         <div class="spark-row"><span class="spark-label">VB Tribunal de Cuentas</span><span class="spark-value hi">16,54%</span></div>
-        <p class="spark-close">¿Por qué sucede esto?</p>
       </div>
     </div>
   </div>
@@ -691,7 +755,7 @@ footer{
   <div class="wrap">
     <div class="section-head">
       <p class="section-num">02 — Antecedentes teóricos</p>
-      <h2 class="section-title">Un recorrido por el estado del arte</h2>
+      <h2 class="section-title">Un recorrido por el estado de la cuestión</h2>
       <p class="section-lede">Antes de mirar los datos, un repaso rápido por seis líneas de discusión de la Ciencia Política que sostienen este trabajo: desde qué es una boleta electoral hasta por qué alguien decide votar.</p>
     </div>
     <div class="ante-grid">
@@ -870,7 +934,10 @@ footer{
     <div class="prov-tabs" id="provTabs"></div>
     <div id="provPanels"></div>
     <div class="map-callout">
-      <a href="https://gsagarraga.github.io/boletas.argentina/" target="_blank" rel="noopener" class="btn btn-ghost">Mapa electoral de provincias de Argentina ↗</a>
+      <a href="https://gsagarraga.github.io/boletas.argentina/" target="_blank" rel="noopener" class="btn btn-ghost">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1.2c-2.1 0-3.8 1.7-3.8 3.8 0 2.85 3.8 7.8 3.8 7.8s3.8-4.95 3.8-7.8c0-2.1-1.7-3.8-3.8-3.8Z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/><circle cx="7" cy="5" r="1.4" stroke="currentColor" stroke-width="1.2"/></svg>
+        Mapa electoral de provincias de Argentina ↗
+      </a>
       <p>Un proyecto complementario del mismo autor: un mapa interactivo para recorrer, provincia por provincia, el instrumento de votación utilizado en cada distrito argentino.</p>
     </div>
   </div>
@@ -951,6 +1018,26 @@ footer{
 </footer>
 
 <script>
+/* =====================================================================
+   NAV — dropdown móvil
+===================================================================== */
+(function(){
+  const toggle = document.getElementById('navToggle');
+  const dropdown = document.getElementById('navDropdown');
+  const label = toggle.querySelector('span');
+  function closeMenu(){
+    dropdown.classList.remove('open');
+    toggle.setAttribute('aria-expanded','false');
+    label.textContent = 'Menú';
+  }
+  toggle.addEventListener('click', ()=>{
+    const isOpen = dropdown.classList.toggle('open');
+    toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    label.textContent = isOpen ? 'Cerrar' : 'Menú';
+  });
+  dropdown.querySelectorAll('a').forEach(a=> a.addEventListener('click', closeMenu));
+})();
+
 /* =====================================================================
    DATOS — transcritos de las Tablas 1-10 y el Anexo II del TFG
 ===================================================================== */
@@ -1539,10 +1626,14 @@ function buildTrendChart(pk){
   if(trendCharts[pk]) trendCharts[pk].destroy();
 
   const legend = document.getElementById('trendLegend-'+pk);
-  legend.innerHTML = DIM_ROWS.map(d=>{
-    const st = DIM_LINE_STYLE[d.key];
-    return `<span><i class="${st.dash?'dash':''}" style="border-color:${HUE[st.color]}"></i>${d.label}</span>`;
-  }).join('');
+  legend.innerHTML = GROUPS.map(g=>{
+    const hue = HUE[DIM_LINE_STYLE[g.metrics[0]].color];
+    const subs = g.metrics.map((mk,i)=>{
+      const dash = DIM_LINE_STYLE[mk].dash;
+      return `<span class="tl-sub"><i class="${dash?'dash':''}" style="border-color:${hue}"></i>${g.subLabels[i]}</span>`;
+    }).join('');
+    return `<div class="tl-row"><span class="tl-name" style="color:${hue}">${g.label}</span>${subs}</div>`;
+  }).join('') + (p.reform!=null ? `<div class="reform-note">★ ${p.reform} — año en que ${p.name} adoptó la ${p.ballot}, marcado también en el eje del gráfico</div>` : '');
 
   const datasets = DIM_ROWS.map(d=>{
     const st = DIM_LINE_STYLE[d.key];
@@ -1558,50 +1649,32 @@ function buildTrendChart(pk){
     type:'line',
     data:{ labels:YEARS, datasets },
     options: baseOptions({
-      layout:{ padding:{ top:22 } },
       scales:{
-        x:{ grid:axisGrid(), ticks:axisTicks({}) },
+        x:{
+          grid:{
+            color:(c)=> YEARS[c.index]===p.reform ? 'rgba(242,236,217,0.4)' : '#232014',
+            lineWidth:(c)=> YEARS[c.index]===p.reform ? 1.5 : 1,
+            drawTicks:false,
+          },
+          ticks:{
+            color:(c)=> YEARS[c.index]===p.reform ? '#f2ecd9' : '#948c72',
+            font:(c)=> YEARS[c.index]===p.reform
+              ? {family:'JetBrains Mono', size:10.5, weight:'700'}
+              : {family:'JetBrains Mono', size:10.5},
+            callback:(val,idx)=> YEARS[idx]===p.reform ? YEARS[idx]+' ★' : YEARS[idx],
+          },
+        },
         y:{ grid:axisGrid(), ticks:axisTicks({ callback:v=> (v>0?'+':'')+v }) }
       },
       plugins:{ legend:{display:false},
         tooltip:{ backgroundColor:'#1c1a13', borderColor:'#33301f', borderWidth:1,
           titleColor:'#f2ecd9', bodyColor:'#e7e1cf', padding:10,
           titleFont:{family:'JetBrains Mono', size:11}, bodyFont:{family:'JetBrains Mono', size:11},
-          callbacks:{ label:(c)=> `${c.dataset.label}: ${c.parsed.y>0?'+':''}${c.parsed.y.toFixed(2)}` } } }
-    }),
-    plugins:[{
-      id:'reformMarker-'+pk,
-      afterDraw(chart){
-        if(p.reform == null) return;
-        const {ctx, chartArea, scales} = chart;
-        const idx = YEARS.indexOf(p.reform);
-        if(idx === -1) return;
-        const x = scales.x.getPixelForValue(p.reform, idx);
-        if(x < chartArea.left || x > chartArea.right) return;
-        ctx.save();
-        ctx.strokeStyle = 'rgba(242,236,217,0.5)';
-        ctx.lineWidth = 1.3;
-        ctx.setLineDash([4,4]);
-        ctx.beginPath();
-        ctx.moveTo(x, chartArea.top);
-        ctx.lineTo(x, chartArea.bottom);
-        ctx.stroke();
-        ctx.setLineDash([]);
-
-        const label = 'Reforma → '+p.ballot;
-        ctx.font = "10px 'JetBrains Mono', monospace";
-        const tw = ctx.measureText(label).width;
-        let lx = x - tw/2 - 5;
-        lx = Math.max(chartArea.left, Math.min(lx, chartArea.right - tw - 10));
-        ctx.fillStyle = '#141209';
-        ctx.fillRect(lx, chartArea.top - 20, tw + 10, 16);
-        ctx.fillStyle = '#f2ecd9';
-        ctx.textAlign = 'left';
-        ctx.textBaseline = 'middle';
-        ctx.fillText(label, lx + 5, chartArea.top - 12);
-        ctx.restore();
-      }
-    }]
+          callbacks:{
+            title:(items)=> items[0] ? `${items[0].label}${Number(items[0].label)===p.reform? '  ★ Reforma → '+p.ballot : ''}` : '',
+            label:(c)=> `${c.dataset.label}: ${c.parsed.y>0?'+':''}${c.parsed.y.toFixed(2)}`
+          } } }
+    })
   });
 }
 
