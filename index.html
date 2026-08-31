@@ -191,7 +191,7 @@ h1.title em{
 .hero-sub{
   font-size:16.5px;
   color:var(--text-dim);
-  max-width:62ch;
+  max-width:none;
   margin:0 0 28px;
 }
 .hero-meta{
@@ -277,19 +277,19 @@ h1.title em{
 /* ---------- SECTION generic ---------- */
 section{padding:88px 0;}
 .section-head{
-  max-width:820px; margin:0 0 46px;
+  margin:0 0 46px;
 }
 .section-num{
   font-family:'JetBrains Mono', monospace; font-size:11.5px; color:var(--text-faint);
   letter-spacing:.1em; text-transform:uppercase; margin:0 0 14px;
 }
 h2.section-title{
-  font-size:clamp(28px, 3.6vw, 42px);
+  font-size:clamp(28px, 3.2vw, 44px);
   font-weight:700; letter-spacing:-.01em;
   color:var(--paper); margin:0 0 16px; line-height:1.08;
 }
 .section-lede{
-  font-size:15.5px; color:var(--text-dim); max-width:70ch; margin:0;
+  font-size:15.5px; color:var(--text-dim); margin:0; max-width:none;
 }
 hr.rule{border:none; border-top:1px solid var(--line-soft); margin:0;}
 
@@ -306,28 +306,39 @@ hr.rule{border:none; border-top:1px solid var(--line-soft); margin:0;}
 }
 .ante-text{font-size:13px; color:var(--text-dim); margin:0; flex:1; line-height:1.55;}
 .ante-cite{font-family:'JetBrains Mono',monospace; font-size:10.5px; color:var(--text-faint); margin:0; border-top:1px solid var(--line-soft); padding-top:10px;}
-.ante-note{font-size:13px; color:var(--text-dim); max-width:62ch; margin:24px 0 0;}
+.ante-note{
+  font-size:14px; line-height:1.6; color:var(--text-dim); max-width:none;
+  margin:36px 0 0; padding-top:26px; border-top:1px solid var(--line-soft);
+}
 .ante-note em{color:var(--paper-dim); font-style:italic;}
 @media (max-width:920px){ .ante-grid{grid-template-columns:1fr 1fr;} }
 @media (max-width:600px){ .ante-grid{grid-template-columns:1fr;} }
 
 /* ---------- CONTEXT ---------- */
 .context-grid{
-  display:grid; grid-template-columns:1fr 1fr; gap:48px;
-  align-items:start;
+  display:grid; grid-template-columns:1.7fr 1fr; gap:48px;
+  align-items:stretch;
 }
-.context-copy p{font-size:15px; color:var(--text-dim); margin:0 0 16px;}
+.context-copy p{font-size:15px; color:var(--text-dim); margin:0 0 16px; max-width:none;}
 .context-copy strong{color:var(--paper-dim); font-weight:600;}
 .spark-card{
   background:var(--card); border:1px solid var(--line-soft); border-radius:var(--radius-lg);
-  padding:26px;
+  padding:26px; height:100%;
+  display:flex; flex-direction:column;
 }
 .spark-title{font-family:'JetBrains Mono',monospace; font-size:11px; text-transform:uppercase; letter-spacing:.08em; color:var(--text-faint); margin:0 0 16px;}
+.spark-rows{flex-shrink:0;}
 .spark-row{display:flex; justify-content:space-between; align-items:baseline; padding:10px 0; border-bottom:1px solid var(--line-soft);}
 .spark-row:last-child{border-bottom:none;}
 .spark-label{font-size:13.5px; color:var(--text-dim);}
 .spark-value{font-family:'JetBrains Mono',monospace; font-size:15px; color:var(--paper);}
 .spark-value.hi{color:var(--cordoba); font-weight:600;}
+.spark-map{
+  flex:1; min-height:80px;
+  display:flex; align-items:center; justify-content:center;
+  padding-top:22px; margin-top:6px;
+}
+.spark-map svg{width:auto; height:100%; max-width:78%; max-height:230px;}
 .spark-close{
   margin:18px 0 0; padding-top:16px; border-top:1px solid var(--line-soft);
   font-size:16px; font-weight:600; font-style:italic; color:var(--paper);
@@ -462,7 +473,7 @@ hr.rule{border:none; border-top:1px solid var(--line-soft); margin:0;}
 .prov-tabs button.active{background:var(--bg-1); color:var(--paper); border-color:var(--paper-dim);}
 .prov-panel{display:none;}
 .prov-panel.active{display:block;}
-.prov-intro{font-size:14px; color:var(--text-dim); max-width:62ch; margin:0 0 20px;}
+.prov-intro{font-size:14px; color:var(--text-dim); max-width:none; margin:0 0 20px;}
 
 .prov-toolbar{
   display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap;
@@ -529,11 +540,11 @@ hr.rule{border:none; border-top:1px solid var(--line-soft); margin:0;}
 }
 
 .map-callout{
-  display:flex; align-items:center; gap:22px; flex-wrap:wrap;
+  display:flex; align-items:flex-start; gap:22px; flex-wrap:wrap;
   margin-top:36px; padding:24px 28px; background:var(--card); border:1px solid var(--line-soft); border-radius:2px;
 }
-.map-callout .btn{flex-shrink:0;}
-.map-callout p{font-size:12.5px; color:var(--text-dim); margin:0; max-width:48ch; line-height:1.55;}
+.map-callout .btn{flex-shrink:0; margin-top:2px;}
+.map-callout p{font-size:12.5px; color:var(--text-dim); margin:0; max-width:none; line-height:1.55;}
 
 /* ---------- HYPOTHESES ---------- */
 .hyp-grid{display:flex; flex-direction:column; gap:1px; background:var(--line-soft); border:1px solid var(--line-soft); border-radius:var(--radius-lg); overflow:hidden;}
@@ -560,11 +571,11 @@ hr.rule{border:none; border-top:1px solid var(--line-soft); margin:0;}
 
 /* ---------- CONCLUSIONS ---------- */
 .conc-grid{display:grid; grid-template-columns:1.3fr 1fr; gap:56px;}
-.conc-copy p{font-size:15px; color:var(--text-dim); margin:0 0 16px;}
+.conc-copy p{font-size:15px; color:var(--text-dim); margin:0 0 16px; max-width:none;}
 .conc-copy .lead{font-size:17px; color:var(--paper-dim); font-weight:500; margin-bottom:24px;}
 .closing-quote{
   margin-top:64px; padding-top:52px; border-top:1px solid var(--line-soft);
-  max-width:760px;
+  max-width:none;
 }
 .closing-quote p{
   font-size:clamp(19px, 2.6vw, 27px); line-height:1.42; font-weight:400; font-style:italic;
@@ -609,7 +620,7 @@ footer{
 }
 .footer-contact a:hover{color:var(--paper); border-bottom-color:var(--paper-dim);}
 .footer-grid{display:flex; justify-content:space-between; flex-wrap:wrap; gap:30px;}
-.footer-cite{font-size:13px; color:var(--text-dim); max-width:62ch; line-height:1.6;}
+.footer-cite{font-size:13px; color:var(--text-dim); max-width:none; line-height:1.6;}
 .footer-cite b{color:var(--paper-dim); display:block; margin-bottom:4px; font-weight:500;}
 .footer-meta{font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--text-faint); text-align:right;}
 .footer-meta a{color:var(--paper-dim); text-decoration:none; border-bottom:1px solid var(--line);}
@@ -617,11 +628,6 @@ footer{
 /* ---------- RESPONSIVE ---------- */
 @media (min-width:1440px){
   .wrap{max-width:1360px;}
-  .section-head{max-width:960px;}
-  .section-lede{max-width:78ch;}
-  .hero-sub{max-width:68ch;}
-  .context-copy p{max-width:56ch;}
-  .conc-copy p{max-width:64ch;}
 }
 @media (max-width:920px){
   .hero-grid{grid-template-columns:1fr; gap:44px;}
@@ -740,10 +746,18 @@ footer{
       </div>
       <div class="spark-card">
         <p class="spark-title">El caso que abrió la pregunta</p>
-        <div class="spark-row"><span class="spark-label">VB Gobernador y Vice (2023)</span><span class="spark-value">4,93%</span></div>
-        <div class="spark-row"><span class="spark-label">VB Legislador distrito único</span><span class="spark-value hi">15,94%</span></div>
-        <div class="spark-row"><span class="spark-label">VB Legislador departamental</span><span class="spark-value hi">14,63%</span></div>
-        <div class="spark-row"><span class="spark-label">VB Tribunal de Cuentas</span><span class="spark-value hi">16,54%</span></div>
+        <div class="spark-rows">
+          <div class="spark-row"><span class="spark-label">VB Gobernador y Vice (2023)</span><span class="spark-value">4,93%</span></div>
+          <div class="spark-row"><span class="spark-label">VB Legislador distrito único</span><span class="spark-value hi">15,94%</span></div>
+          <div class="spark-row"><span class="spark-label">VB Legislador departamental</span><span class="spark-value hi">14,63%</span></div>
+          <div class="spark-row"><span class="spark-label">VB Tribunal de Cuentas</span><span class="spark-value hi">16,54%</span></div>
+        </div>
+        <div class="spark-map" aria-hidden="true">
+          <svg viewBox="0 0 280 432" xmlns="http://www.w3.org/2000/svg">
+            <path d="M56.8,5.9 L61.0,31.5 L25.7,48.1 L0.6,119.6 L0.0,187.1 L33.7,199.9 L39.8,221.4 L59.7,221.2 L62.5,237.8 L44.2,290.3 L47.1,432.0 L167.5,432.0 L167.5,384.1 L204.1,382.8 L279.6,276.4 L280.0,258.1 L268.6,249.1 L270.1,232.1 L251.8,206.2 L248.0,173.0 L277.1,91.7 L266.5,89.6 L252.9,64.5 L225.5,61.2 L225.9,45.0 L210.2,24.0 L163.5,21.0 L162.2,12.0 L105.8,0.0 Z"
+                  fill="var(--cordoba)" fill-opacity="0.14" stroke="var(--cordoba)" stroke-opacity="0.55" stroke-width="2.5" stroke-linejoin="round"/>
+          </svg>
+        </div>
       </div>
     </div>
   </div>
