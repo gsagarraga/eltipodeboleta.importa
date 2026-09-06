@@ -4,6 +4,17 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>¿El tipo de boleta importa? — TFG Gonzalo Sagarraga</title>
+<meta name="description" content="Análisis descriptivo de las relaciones entre los tipos de boletas electorales y los resultados electorales en cuatro provincias argentinas (2003-2023). TFG de Ciencia Política, UNC.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="¿El tipo de boleta importa?">
+<meta property="og:description" content="Boletas electorales y resultados en cuatro provincias argentinas, 2003–2023. Un sitio interactivo, TFG de Ciencia Política (UNC).">
+<meta property="og:image" content="og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="¿El tipo de boleta importa?">
+<meta name="twitter:description" content="Boletas electorales y resultados en cuatro provincias argentinas, 2003–2023.">
+<meta name="twitter:image" content="og-image.jpg">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230a0a08'/%3E%3Crect x='6' y='10' width='20' height='14' rx='1.4' fill='none' stroke='%23f2ecd9' stroke-width='1.8'/%3E%3Cpath d='M6 10.5 16 18 26 10.5' fill='none' stroke='%23f2ecd9' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -547,6 +558,28 @@ hr.rule{border:none; border-top:1px solid var(--line-soft); margin:0;}
 .map-callout p{font-size:12.5px; color:var(--text-dim); margin:0; max-width:none; line-height:1.55;}
 
 /* ---------- HYPOTHESES ---------- */
+.radar-section{
+  display:grid; grid-template-columns:1.1fr 1fr; gap:40px; align-items:center;
+  margin-bottom:44px;
+}
+.radar-card{
+  background:var(--card); border:1px solid var(--line-soft); border-radius:var(--radius-lg);
+  padding:20px; height:420px;
+}
+.radar-chart-wrap{position:relative; width:100%; height:100%;}
+.radar-kicker{
+  font-family:'JetBrains Mono',monospace; font-size:11px; text-transform:uppercase; letter-spacing:.08em;
+  color:var(--paper-dim); margin:0 0 12px;
+}
+.radar-copy{font-size:14px; color:var(--text-dim); line-height:1.6; margin:0 0 22px;}
+.radar-legend{display:flex; flex-direction:column; gap:10px;}
+.radar-legend span{display:flex; align-items:center; gap:10px; font-size:13px; color:var(--text-dim);}
+.radar-legend i{width:12px; height:12px; border-radius:50%; flex-shrink:0;}
+@media (max-width:820px){
+  .radar-section{grid-template-columns:1fr;}
+  .radar-card{height:340px;}
+}
+
 .hyp-grid{display:flex; flex-direction:column; gap:1px; background:var(--line-soft); border:1px solid var(--line-soft); border-radius:var(--radius-lg); overflow:hidden;}
 .hyp-card{background:var(--bg-1); padding:28px 30px; display:grid; grid-template-columns:56px 1fr auto; gap:24px; align-items:start;}
 .hyp-num{font-family:'JetBrains Mono',monospace; font-size:22px; color:var(--text-faint); font-weight:600;}
@@ -965,6 +998,21 @@ footer{
       <p class="section-num">06 — Revisión de hipótesis</p>
       <h2 class="section-title">Lo esperado frente a lo observado</h2>
       <p class="section-lede">El trabajo planteó cuatro hipótesis descriptivas sobre el orden en que cada tipo de boleta se relacionaría con cada dimensión. Este es el contraste entre el orden esperado y el que arrojaron los datos.</p>
+    </div>
+    <div class="radar-section">
+      <div class="radar-card">
+        <div class="radar-chart-wrap"><canvas id="hypRadarChart"></canvas></div>
+      </div>
+      <div class="radar-side">
+        <p class="radar-kicker">La huella de cada boleta</p>
+        <p class="radar-copy">Para cada una de las cuatro dimensiones de las hipótesis, el gráfico muestra cuánto se aparta el promedio de cada instrumento del promedio entre los cuatro (puntaje Z). Cuanto más lejos del centro, más se destaca esa boleta en esa dimensión — sea para bien o para mal.</p>
+        <div class="radar-legend">
+          <span><i style="background:var(--bp)"></i>BP — Boleta Partidaria</span>
+          <span><i style="background:var(--bus)"></i>BUS — Boleta Única de Sufragio</span>
+          <span><i style="background:var(--but)"></i>BUT — Boleta Única por Tramos</span>
+          <span><i style="background:var(--bue)"></i>BUE — Boleta Única Electrónica</span>
+        </div>
+      </div>
     </div>
     <div class="hyp-grid" id="hypGrid"></div>
   </div>
@@ -1760,6 +1808,49 @@ function chainHtml(arr){
     return `<span class="b" style="background:${BALLOT_COLORS[code]}">${code}</span>${sep}`;
   }).join('');
 }
+/* =====================================================================
+   RADAR — huella de cada boleta en las 4 dimensiones de las hipótesis
+===================================================================== */
+const RADAR_AXES = ['Voto en blanco', 'Voto nulo', 'Voto cruzado', 'Participación'];
+const RADAR_Z = {
+  BP:  [0.259, -0.419, -0.603, 1.082],
+  BUS: [1.515,  0.149, -0.567, -0.965],
+  BUT: [-0.711, 1.507,  1.732, -1.031],
+  BUE: [-1.063,-1.237, -0.562, 0.913],
+};
+(function(){
+  const ctx = document.getElementById('hypRadarChart');
+  if(!ctx) return;
+  const rootStyles = getComputedStyle(document.documentElement);
+  const col = (name)=> rootStyles.getPropertyValue(name).trim();
+  const colors = { BP: col('--bp'), BUS: col('--bus'), BUT: col('--but'), BUE: col('--bue') };
+  const datasets = Object.keys(RADAR_Z).map(t=>({
+    label:t, data:RADAR_Z[t],
+    borderColor: colors[t], backgroundColor: colors[t]+'26',
+    pointBackgroundColor: colors[t], pointBorderColor:'#0a0a08', pointBorderWidth:1.5,
+    borderWidth:2.2, pointRadius:3.5, pointHoverRadius:5.5,
+  }));
+  new Chart(ctx, {
+    type:'radar',
+    data:{ labels:RADAR_AXES, datasets },
+    options:{
+      responsive:true, maintainAspectRatio:false,
+      scales:{ r:{
+        min:-2, max:2,
+        grid:{ color:'#232014' },
+        angleLines:{ color:'#232014' },
+        pointLabels:{ color:'#b8ae91', font:{family:'JetBrains Mono', size:12} },
+        ticks:{ display:false, stepSize:1 },
+      }},
+      plugins:{ legend:{display:false},
+        tooltip:{ backgroundColor:'#1c1a13', borderColor:'#33301f', borderWidth:1,
+          titleColor:'#f2ecd9', bodyColor:'#e7e1cf', padding:10,
+          titleFont:{family:'JetBrains Mono', size:11}, bodyFont:{family:'JetBrains Mono', size:11},
+          callbacks:{ label:(c)=> `${c.dataset.label}: ${c.parsed.r>0?'+':''}${c.parsed.r.toFixed(2)}` } } }
+    }
+  });
+})();
+
 HYPOTHESES.forEach(h=>{
   const card = document.createElement('div');
   card.className = 'hyp-card';

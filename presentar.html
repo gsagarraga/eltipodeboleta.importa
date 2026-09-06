@@ -4,6 +4,16 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>¿El tipo de boleta importa? — Presentación</title>
+<meta name="description" content="Presentación interactiva en 30 diapositivas del TFG '¿El tipo de boleta importa?', Ciencia Política, UNC.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="¿El tipo de boleta importa? — Presentación">
+<meta property="og:description" content="Presentación interactiva del TFG sobre boletas electorales y resultados en cuatro provincias argentinas (2003–2023).">
+<meta property="og:image" content="og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="¿El tipo de boleta importa? — Presentación">
+<meta name="twitter:image" content="og-image.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,500&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -163,13 +173,16 @@ h2.stitle{
 <body>
 
 <div id="progress"></div>
-<a href="tfg-boletas-electorales.html" id="exitLink"><span class="mono">←</span><span class="long">Sitio completo</span></a>
+<a href="index.html" id="exitLink"><span class="mono">←</span><span class="long">Sitio completo</span></a>
 <div class="clickzone left" onclick="prevSlide()"></div>
 <div class="clickzone right" onclick="nextSlide()"></div>
 
 <div id="deck"></div>
 
 <div id="navBtns">
+  <button class="navbtn" id="btnFullscreen" onclick="toggleFullscreen()" aria-label="Pantalla completa">
+    <svg width="15" height="15" viewBox="0 0 16 16" fill="none"><path d="M2 6V2h4M14 6V2h-4M2 10v4h4M14 10v4h-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </button>
   <button class="navbtn" id="btnPrev" onclick="prevSlide()" aria-label="Anterior">
     <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 3 5 8l5 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
   </button>
@@ -400,6 +413,54 @@ ANTE.forEach((a,i)=>{
   `});
 });
 
+/* =====================================================================
+   RADAR — huella de cada boleta en las 4 dimensiones de las hipótesis
+   (SVG puro, responsivo vía viewBox, mismos datos y colores que el sitio)
+===================================================================== */
+const RADAR_AXES = ['Voto en blanco','Voto nulo','Voto cruzado','Participación'];
+const RADAR_Z = {
+  BP:  [0.259, -0.419, -0.603, 1.082],
+  BUS: [1.515,  0.149, -0.567, -0.965],
+  BUT: [-0.711, 1.507,  1.732, -1.031],
+  BUE: [-1.063,-1.237, -0.562, 0.913],
+};
+
+function radarSVG(){
+  const W = 620, H = 620;
+  const cx = W/2, cy = H/2 - 10;
+  const R = 210;
+  const zMin = -2, zMax = 2;
+  const rFor = (z)=> R * (Math.max(zMin,Math.min(zMax,z)) - zMin) / (zMax - zMin);
+  const angleFor = (i)=> -Math.PI/2 + i*(Math.PI*2/4);
+  const ptFor = (i, z)=>{
+    const a = angleFor(i), r = rFor(z);
+    return [cx + r*Math.cos(a), cy + r*Math.sin(a)];
+  };
+
+  let svg = '';
+  // grid rings at z = -2,-1,0,1,2
+  [-2,-1,0,1,2].forEach(zv=>{
+    const pts = [0,1,2,3].map(i=>ptFor(i, zv));
+    svg += `<polygon points="${pts.map(p=>p.join(',')).join(' ')}" fill="none" stroke="${zv===0?'#4a4530':'#232014'}" stroke-width="${zv===0?'1.6':'1'}"/>`;
+  });
+  // axis spokes + labels
+  RADAR_AXES.forEach((label,i)=>{
+    const [ex,ey] = ptFor(i, zMax);
+    svg += `<line x1="${cx}" y1="${cy}" x2="${ex}" y2="${ey}" stroke="#232014" stroke-width="1"/>`;
+    const [lx,ly] = ptFor(i, zMax*1.22);
+    svg += `<text x="${lx}" y="${ly}" text-anchor="middle" dominant-baseline="middle" font-family="JetBrains Mono, monospace" font-size="18" fill="#b8ae91">${label}</text>`;
+  });
+  // data polygons
+  Object.keys(RADAR_Z).forEach(t=>{
+    const col = BALLOT_COLORS[t];
+    const pts = RADAR_Z[t].map((z,i)=> ptFor(i,z));
+    svg += `<polygon points="${pts.map(p=>p.join(',')).join(' ')}" fill="${col}" fill-opacity="0.14" stroke="${col}" stroke-width="2.6"/>`;
+    pts.forEach(([px,py])=>{ svg += `<circle cx="${px}" cy="${py}" r="5" fill="${col}" stroke="#0a0a08" stroke-width="1.4"/>`; });
+  });
+
+  return `<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid meet" style="width:100%; height:100%; display:block;">${svg}</svg>`;
+}
+
 // ---- 11. LAS BOLETAS: overview ----
 SLIDES.push({ tag:'Las boletas', render:()=>`
   <p class="eyebrow">Cuatro instrumentos</p>
@@ -593,7 +654,27 @@ PROVS.forEach((p,i)=>{
   `});
 });
 
-// ---- 24-27. LAS 4 HIPÓTESIS ----
+// ---- 24. LA HUELLA DE CADA BOLETA (radar) ----
+SLIDES.push({ tag:'Hipótesis', render:()=>`
+  <div class="grid2" style="align-items:center;">
+    <div>
+      <p class="eyebrow">Antes de repasar cada hipótesis</p>
+      <h2 class="stitle" style="font-size:clamp(24px,3vw,38px)">La huella de cada boleta</h2>
+      <p class="slede" style="margin-bottom:20px;">Para cada una de las cuatro dimensiones de las hipótesis, cuánto se aparta el promedio de cada instrumento del promedio entre los cuatro (puntaje Z). Más lejos del centro, más se destaca esa boleta —para bien o para mal.</p>
+      <div style="display:flex; flex-direction:column; gap:10px;">
+        ${['BP — Boleta Partidaria','BUS — Boleta Única de Sufragio','BUT — Boleta Única por Tramos','BUE — Boleta Única Electrónica'].map((label)=>{
+          const code = label.split(' —')[0];
+          return `<span style="display:flex; align-items:center; gap:10px; font-size:14px; color:var(--text-dim);"><i style="width:12px;height:12px;border-radius:50%;background:${BALLOT_COLORS[code]};display:inline-block; flex-shrink:0;"></i>${label}</span>`;
+        }).join('')}
+      </div>
+    </div>
+    <div class="card" style="height:min(60vh,540px); padding:14px;">
+      <div class="chart-wrap">${radarSVG()}</div>
+    </div>
+  </div>
+`});
+
+// ---- 25-28. LAS 4 HIPÓTESIS ----
 HYPOTHESES.forEach((h,i)=>{
   const ordersBlock = h.expected ? `
     <div class="grid2" style="max-width:900px; margin-bottom:22px;">
@@ -654,7 +735,7 @@ SLIDES.push({ tag:'', render:()=>`
     <div style="background:#000; padding:16px; border-radius:10px; width:fit-content; margin:0 auto 20px; border:1px solid var(--line-soft);">
       <img src="${QR_SITE_IMG}" alt="Código QR al sitio completo" style="display:block; width:clamp(110px,11vw,150px); height:auto;">
     </div>
-    <a href="tfg-boletas-electorales.html" class="mono" style="display:inline-flex; align-items:center; gap:10px; border:1px solid var(--celeste); color:var(--celeste); padding:14px 28px; border-radius:30px; text-decoration:none; font-size:14px; letter-spacing:.03em;">→ Ir al sitio completo</a>
+    <a href="index.html" class="mono" style="display:inline-flex; align-items:center; gap:10px; border:1px solid var(--celeste); color:var(--celeste); padding:14px 28px; border-radius:30px; text-decoration:none; font-size:14px; letter-spacing:.03em;">→ Ir al sitio completo</a>
     <div style="margin-top:64px; padding-top:24px; border-top:1px solid var(--line-soft); display:inline-block;">
       <p style="font-size:17px; color:var(--paper); font-weight:600;">Gonzalo Sagarraga</p>
       <p class="mono" style="font-size:12px; color:var(--text-faint); margin-top:4px;">Lic. en Ciencia Política · UNC</p>
@@ -723,7 +804,6 @@ function nextSlide(){ if(current < SLIDES.length-1) goTo(current+1); }
 function prevSlide(){ if(current > 0) goTo(current-1); }
 
 document.addEventListener('keydown', handleKey);
-window.addEventListener('keydown', handleKey);
 function handleKey(e){
   if(['ArrowRight','ArrowDown','PageDown',' '].includes(e.key)){ e.preventDefault(); nextSlide(); }
   else if(['ArrowLeft','ArrowUp','PageUp'].includes(e.key)){ e.preventDefault(); prevSlide(); }
@@ -752,6 +832,13 @@ function toggleFullscreen(){
     else document.exitFullscreen();
   }catch(e){ /* fullscreen not permitted in this context */ }
 }
+document.addEventListener('fullscreenchange', ()=>{
+  const btn = document.getElementById('btnFullscreen');
+  if(!btn) return;
+  btn.innerHTML = document.fullscreenElement
+    ? '<svg width="15" height="15" viewBox="0 0 16 16" fill="none"><path d="M6 2v4H2M10 2v4h4M6 14v-4H2M10 14v-4h4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>'
+    : '<svg width="15" height="15" viewBox="0 0 16 16" fill="none"><path d="M2 6V2h4M14 6V2h-4M2 10v4h4M14 10v4h-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+});
 
 // initial slide from URL hash, e.g. presentar.html#12
 let initial = 0;
