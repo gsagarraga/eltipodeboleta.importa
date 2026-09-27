@@ -1,0 +1,25 @@
+province_es,province_en,year,ballot_type,blank_vote_executive_pct,blank_vote_legislative_pct,null_vote_executive_pct,null_vote_legislative_pct,crossover_vote_between_parties_idx,crossover_vote_with_blank_idx,turnout_pct
+Córdoba,Córdoba,2003,BP,2.69,8.63,1.7,1.87,16.41,2.97,73.94
+Córdoba,Córdoba,2007,BP,6.27,7.67,1.89,1.78,1.595,0.7,72.01
+Córdoba,Córdoba,2011,BUS,2.64,20.64,2.36,2.1,4.36,9,75.95
+Córdoba,Córdoba,2015,BUS,3.88,15.73,3.38,3.41,2.84,5.93,74.97
+Córdoba,Córdoba,2019,BUS,5.89,18.9,2.8,2.78,2.955,6.505,72.78
+Córdoba,Córdoba,2023,BUS,4.93,15.94,2.49,2.35,2.14,5.505,68.2
+Entre Ríos,Entre Ríos,2003,BP,5.59,11.82,0.9,0.91,1.775,3.115,78.31
+Entre Ríos,Entre Ríos,2007,BP,4.61,6.91,1.33,1.32,0.885,1.15,77.0
+Entre Ríos,Entre Ríos,2011,BP,12.71,18.52,0.69,0.74,2.84,2.905,82.32
+Entre Ríos,Entre Ríos,2015,BP,11.09,13.57,0.62,0.63,0.705,1.24,84.63
+Entre Ríos,Entre Ríos,2019,BP,9.11,11.85,1.14,1.07,2.51,1.37,78.35
+Entre Ríos,Entre Ríos,2023,BP,11.6,15.26,0.83,0.84,0.64,1.83,78.44
+Santa Fe,Santa Fe,2003,BP,15.06,23.37,1.21,1.18,5.615,4.155,75.68
+Santa Fe,Santa Fe,2007,BP,7.45,11.27,0.92,0.93,1.615,1.91,77.04
+Santa Fe,Santa Fe,2011,BUT,2.3,8.3,4.24,8.13,19.42,3,74.86
+Santa Fe,Santa Fe,2015,BUT,3.35,7.01,3.24,4.05,17.1,1.92,76.33
+Santa Fe,Santa Fe,2019,BUT,4.16,5.74,4.35,4.31,16.865,0.87,71.91
+Santa Fe,Santa Fe,2023,BUT,4.54,5.56,3.51,4.03,14.67,0.51,68.22
+Neuquén,Neuquén,2003,BP,10.01,12.9,1.78,1.88,1.32,1.445,77.94
+Neuquén,Neuquén,2007,BP,4.45,6.23,3.3,3.42,1.95,0.89,73.89
+Neuquén,Neuquén,2011,BP,4.82,7.03,2.79,3.2,1.095,1.105,73.23
+Neuquén,Neuquén,2015,BP,3.88,6.15,2.62,3.03,1.075,1.135,81.13
+Neuquén,Neuquén,2019,BUE,3.59,5.26,0.18,0.18,3.05,0.835,77.91
+Neuquén,Neuquén,2023,BUE,3.54,4.52,0.1,0.1,3.17,0.49,76.2

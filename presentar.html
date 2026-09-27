@@ -881,7 +881,7 @@ function applyTheme(theme){
 }
 (function initTheme(){
   let saved = null;
-  try{ saved = localStorage.getItem('tfg-presentar-theme'); }catch(e){ /* sandboxed preview */ }
+  try{ saved = localStorage.getItem('tfg-theme'); }catch(e){ /* sandboxed preview */ }
   if(!saved){
     try{ saved = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark'; }
     catch(e){ saved = 'dark'; }
@@ -890,7 +890,7 @@ function applyTheme(theme){
   const btn = document.getElementById('themeToggle');
   if(btn) btn.onclick = ()=>{
     const next = currentTheme() === 'light' ? 'dark' : 'light';
-    try{ localStorage.setItem('tfg-presentar-theme', next); }catch(e){ /* ignore */ }
+    try{ localStorage.setItem('tfg-theme', next); }catch(e){ /* ignore */ }
     applyTheme(next);
   };
 })();
