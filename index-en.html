@@ -8,13 +8,13 @@
 <meta property="og:type" content="website">
 <meta property="og:title" content="Does Ballot Type Matter?">
 <meta property="og:description" content="Electoral ballots and outcomes in four Argentine provinces, 2003–2023. An interactive site, Political Science undergraduate thesis (UNC).">
-<meta property="og:image" content="og-image.jpg">
+<meta property="og:image" content="https://gsagarraga.github.io/eltipodeboleta.importa/og-image.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Does Ballot Type Matter?">
 <meta name="twitter:description" content="Electoral ballots and outcomes in four Argentine provinces, 2003–2023.">
-<meta name="twitter:image" content="og-image.jpg">
+<meta name="twitter:image" content="https://gsagarraga.github.io/eltipodeboleta.importa/og-image.jpg">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230a0a08'/%3E%3Crect x='6' y='10' width='20' height='14' rx='1.4' fill='none' stroke='%23f2ecd9' stroke-width='1.8'/%3E%3Cpath d='M6 10.5 16 18 26 10.5' fill='none' stroke='%23f2ecd9' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -782,6 +782,121 @@ footer{
 .theme-toggle svg{display:block;}
 
 </style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org/",
+  "@type": "Dataset",
+  "name": "Electoral ballots and outcomes in four Argentine provinces (2003-2023)",
+  "description": "Data from 24 provincial elections (4 provinces × 6 elections, 2003 to 2023) in Córdoba, Entre Ríos, Santa Fe and Neuquén: percentage of blank and null votes (executive and legislative races), split-ticket voting index (between parties and with a blank vote) and electoral turnout, together with the ballot type in force in each election (party ballot, single ballot, single ballot by office, and electronic single ballot). Based on Appendix II of the undergraduate thesis «¿El tipo de boleta importa?» (Does ballot type matter?), Universidad Nacional de Córdoba, 2026.",
+  "url": "https://gsagarraga.github.io/eltipodeboleta.importa/index-en.html",
+  "sameAs": "https://gsagarraga.github.io/eltipodeboleta.importa/",
+  "identifier": "https://gsagarraga.github.io/eltipodeboleta.importa/tfg-boletas-datos.csv",
+  "version": "1.0",
+  "datePublished": "2026",
+  "inLanguage": [
+    "en",
+    "es"
+  ],
+  "keywords": [
+    "single ballot",
+    "party ballot",
+    "electronic ballot",
+    "blank vote",
+    "null vote",
+    "split-ticket voting",
+    "voter turnout",
+    "provincial elections",
+    "electoral reform",
+    "voting instrument",
+    "Argentina",
+    "Córdoba",
+    "Santa Fe",
+    "Entre Ríos",
+    "Neuquén",
+    "political science"
+  ],
+  "license": "https://creativecommons.org/licenses/by/4.0/",
+  "isAccessibleForFree": true,
+  "creator": {
+    "@type": "Person",
+    "name": "Gonzalo Sagarraga",
+    "affiliation": {
+      "@type": "Organization",
+      "name": "Facultad de Ciencias Sociales, Universidad Nacional de Córdoba"
+    }
+  },
+  "citation": {
+    "@type": "Thesis",
+    "name": "¿El tipo de boleta importa? Análisis descriptivo de las relaciones existentes entre los tipos de boletas electorales y los resultados electorales en cuatro provincias argentinas (2003-2023)",
+    "inLanguage": "es",
+    "datePublished": "2026",
+    "url": "https://rdu.unc.edu.ar/items/b8fe7c5a-3a95-4fec-8158-7202b0d90041",
+    "author": {
+      "@type": "Person",
+      "name": "Gonzalo Sagarraga"
+    }
+  },
+  "temporalCoverage": "2003/2023",
+  "spatialCoverage": {
+    "@type": "Place",
+    "name": "Argentina — provinces of Córdoba, Entre Ríos, Santa Fe and Neuquén"
+  },
+  "measurementTechnique": "Blank and null votes: number of votes over concurrence (%), split into executive and legislative races. Split-ticket voting: adapted Pedersen index, replacing the temporal dimension with the category of offices being elected. Turnout: percentage of eligible voters who turn out to vote. Own elaboration based on official data.",
+  "variableMeasured": [
+    {
+      "@type": "PropertyValue",
+      "name": "blank_vote_executive_pct",
+      "description": "Blank vote, executive race (governor and vice-governor)",
+      "unitText": "percent (%)"
+    },
+    {
+      "@type": "PropertyValue",
+      "name": "blank_vote_legislative_pct",
+      "description": "Blank vote, legislative race",
+      "unitText": "percent (%)"
+    },
+    {
+      "@type": "PropertyValue",
+      "name": "null_vote_executive_pct",
+      "description": "Null vote, executive race",
+      "unitText": "percent (%)"
+    },
+    {
+      "@type": "PropertyValue",
+      "name": "null_vote_legislative_pct",
+      "description": "Null vote, legislative race",
+      "unitText": "percent (%)"
+    },
+    {
+      "@type": "PropertyValue",
+      "name": "crossover_vote_between_parties_idx",
+      "description": "Split-ticket voting index between parties (adapted Pedersen)",
+      "unitText": "index"
+    },
+    {
+      "@type": "PropertyValue",
+      "name": "crossover_vote_with_blank_idx",
+      "description": "Split-ticket voting index between a party and a blank vote (adapted Pedersen)",
+      "unitText": "index"
+    },
+    {
+      "@type": "PropertyValue",
+      "name": "turnout_pct",
+      "description": "Electoral turnout (eligible voters who turn out to vote)",
+      "unitText": "percent (%)"
+    }
+  ],
+  "distribution": [
+    {
+      "@type": "DataDownload",
+      "name": "Full data (CSV, 24 rows)",
+      "description": "One row per provincial election: province, year, ballot type and the seven measures.",
+      "encodingFormat": "text/csv",
+      "contentUrl": "https://gsagarraga.github.io/eltipodeboleta.importa/tfg-boletas-datos.csv"
+    }
+  ]
+}
+</script>
 </head>
 <body>
 

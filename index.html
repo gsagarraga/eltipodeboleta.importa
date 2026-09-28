@@ -8,13 +8,13 @@
 <meta property="og:type" content="website">
 <meta property="og:title" content="¿El tipo de boleta importa?">
 <meta property="og:description" content="Boletas electorales y resultados en cuatro provincias argentinas, 2003–2023. Un sitio interactivo, TFG de Ciencia Política (UNC).">
-<meta property="og:image" content="og-image.jpg">
+<meta property="og:image" content="https://gsagarraga.github.io/eltipodeboleta.importa/og-image.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="¿El tipo de boleta importa?">
 <meta name="twitter:description" content="Boletas electorales y resultados en cuatro provincias argentinas, 2003–2023.">
-<meta name="twitter:image" content="og-image.jpg">
+<meta name="twitter:image" content="https://gsagarraga.github.io/eltipodeboleta.importa/og-image.jpg">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230a0a08'/%3E%3Crect x='6' y='10' width='20' height='14' rx='1.4' fill='none' stroke='%23f2ecd9' stroke-width='1.8'/%3E%3Cpath d='M6 10.5 16 18 26 10.5' fill='none' stroke='%23f2ecd9' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -782,6 +782,121 @@ footer{
 .theme-toggle svg{display:block;}
 
 </style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org/",
+  "@type": "Dataset",
+  "name": "Boletas electorales y resultados en cuatro provincias argentinas (2003-2023)",
+  "description": "Datos de 24 elecciones provinciales (4 provincias × 6 elecciones, entre 2003 y 2023) de Córdoba, Entre Ríos, Santa Fe y Neuquén: porcentaje de voto en blanco y de voto nulo (categorías ejecutiva y legislativa), índice de voto cruzado (entre partidos y con voto en blanco) y participación electoral, junto con el tipo de boleta vigente en cada elección (Boleta Partidaria, Boleta Única de Sufragio, Boleta Única por Tramos y Boleta Única Electrónica). Basado en el Anexo II del Trabajo Final de Grado «¿El tipo de boleta importa?» (Universidad Nacional de Córdoba, 2026).",
+  "url": "https://gsagarraga.github.io/eltipodeboleta.importa/",
+  "sameAs": "https://gsagarraga.github.io/eltipodeboleta.importa/index-en.html",
+  "identifier": "https://gsagarraga.github.io/eltipodeboleta.importa/tfg-boletas-datos.csv",
+  "version": "1.0",
+  "datePublished": "2026",
+  "inLanguage": [
+    "es",
+    "en"
+  ],
+  "keywords": [
+    "boleta única",
+    "boleta partidaria",
+    "boleta única electrónica",
+    "voto en blanco",
+    "voto nulo",
+    "voto cruzado",
+    "participación electoral",
+    "elecciones provinciales",
+    "reforma electoral",
+    "instrumento de votación",
+    "Argentina",
+    "Córdoba",
+    "Santa Fe",
+    "Entre Ríos",
+    "Neuquén",
+    "ciencia política"
+  ],
+  "license": "https://creativecommons.org/licenses/by/4.0/",
+  "isAccessibleForFree": true,
+  "creator": {
+    "@type": "Person",
+    "name": "Gonzalo Sagarraga",
+    "affiliation": {
+      "@type": "Organization",
+      "name": "Facultad de Ciencias Sociales, Universidad Nacional de Córdoba"
+    }
+  },
+  "citation": {
+    "@type": "Thesis",
+    "name": "¿El tipo de boleta importa? Análisis descriptivo de las relaciones existentes entre los tipos de boletas electorales y los resultados electorales en cuatro provincias argentinas (2003-2023)",
+    "inLanguage": "es",
+    "datePublished": "2026",
+    "url": "https://rdu.unc.edu.ar/items/b8fe7c5a-3a95-4fec-8158-7202b0d90041",
+    "author": {
+      "@type": "Person",
+      "name": "Gonzalo Sagarraga"
+    }
+  },
+  "temporalCoverage": "2003/2023",
+  "spatialCoverage": {
+    "@type": "Place",
+    "name": "Argentina — provincias de Córdoba, Entre Ríos, Santa Fe y Neuquén"
+  },
+  "measurementTechnique": "Voto en blanco y voto nulo: cantidad de votos sobre la concurrencia (%), separados en categorías ejecutiva y legislativa. Voto cruzado: índice de Pedersen adaptado, reemplazando la dimensión temporal por la categoría de cargos a elegir. Participación: porcentaje de electores habilitados que concurren a votar. Elaboración propia a partir de datos oficiales.",
+  "variableMeasured": [
+    {
+      "@type": "PropertyValue",
+      "name": "blank_vote_executive_pct",
+      "description": "Voto en blanco, categoría ejecutiva (gobernador y vicegobernador)",
+      "unitText": "porcentaje (%)"
+    },
+    {
+      "@type": "PropertyValue",
+      "name": "blank_vote_legislative_pct",
+      "description": "Voto en blanco, categoría legislativa",
+      "unitText": "porcentaje (%)"
+    },
+    {
+      "@type": "PropertyValue",
+      "name": "null_vote_executive_pct",
+      "description": "Voto nulo, categoría ejecutiva",
+      "unitText": "porcentaje (%)"
+    },
+    {
+      "@type": "PropertyValue",
+      "name": "null_vote_legislative_pct",
+      "description": "Voto nulo, categoría legislativa",
+      "unitText": "porcentaje (%)"
+    },
+    {
+      "@type": "PropertyValue",
+      "name": "crossover_vote_between_parties_idx",
+      "description": "Índice de voto cruzado entre partidos (Pedersen adaptado)",
+      "unitText": "índice"
+    },
+    {
+      "@type": "PropertyValue",
+      "name": "crossover_vote_with_blank_idx",
+      "description": "Índice de voto cruzado entre partido y voto en blanco (Pedersen adaptado)",
+      "unitText": "índice"
+    },
+    {
+      "@type": "PropertyValue",
+      "name": "turnout_pct",
+      "description": "Participación electoral (electores habilitados que concurren a votar)",
+      "unitText": "porcentaje (%)"
+    }
+  ],
+  "distribution": [
+    {
+      "@type": "DataDownload",
+      "name": "Datos completos (CSV, 24 filas)",
+      "description": "Una fila por elección provincial: provincia, año, tipo de boleta y las siete medidas.",
+      "encodingFormat": "text/csv",
+      "contentUrl": "https://gsagarraga.github.io/eltipodeboleta.importa/tfg-boletas-datos.csv"
+    }
+  ]
+}
+</script>
 </head>
 <body>
 
