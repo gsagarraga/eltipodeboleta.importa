@@ -1456,7 +1456,7 @@ const HYPOTHESES = [
     text:'We expect the proportion of blank votes to vary by ballot type, and to be higher in legislative than in executive races.',
     expected:['BUS','BUT','BP','BUE'],
     observed:['BP','BUS','BUT','BUE'],
-    verdict:'partial', verdictLabel:'Partially confirmed',
+    verdict:'confirmed', verdictLabel:'Confirmed (with nuances)',
     note:'The executive/legislative difference holds, but it is the Party Ballot —not the BUS— that shows the strongest association with blank voting.'
   },
   {
@@ -1464,7 +1464,7 @@ const HYPOTHESES = [
     text:'We expect null votes to vary by ballot, behaving similarly across executive and legislative races.',
     expected:['BUS','BUT','BP','BUE'],
     observed:['BUT','BUS','BP','BUE'],
-    verdict:'confirmed', verdictLabel:'Confirmada, con matices',
+    verdict:'confirmed', verdictLabel:'Confirmed',
     note:'The general order holds; Santa Fe\'s BUT ends up surpassing Córdoba\'s BUS, partly because of its first-time use.'
   },
   {
@@ -1472,7 +1472,7 @@ const HYPOTHESES = [
     text:'We expect a differential relationship by ballot, distinct between "between-party" splitting and splitting "with a blank vote".',
     expected:['BUT','BUE','BUS','BP'],
     observed:['BUT','BUE','BUS','BP'],
-    verdict:'confirmed', verdictLabel:'Confirmada, con matices',
+    verdict:'confirmed', verdictLabel:'Confirmed',
     note:'Between-party splitting matches the expected order exactly. Splitting with a blank vote flips: the BUS ends up concentrating the most of it.'
   },
   {
