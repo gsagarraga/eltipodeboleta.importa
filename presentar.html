@@ -70,7 +70,7 @@ button{font-family:inherit; cursor:pointer;}
 .slide{
   position:absolute; inset:0;
   display:flex; flex-direction:column; justify-content:center;
-  padding:clamp(58px,7vmin,96px) clamp(24px,8vmin,110px);
+  padding:clamp(58px,12.44vmin,96px) clamp(24px,14.22vmin,110px);
   opacity:0; visibility:hidden; pointer-events:none;
   transform:translateX(40px);
   transition:opacity .38s ease, transform .38s ease;
@@ -84,26 +84,26 @@ button{font-family:inherit; cursor:pointer;}
 @media (prefers-reduced-motion: reduce){ .slide{ transition:opacity .01s linear; transform:none !important; } }
 
 .eyebrow{
-  font-family:'JetBrains Mono', monospace; font-size:clamp(11px,1.1vmin,13px);
+  font-family:'JetBrains Mono', monospace; font-size:clamp(11px,1.96vmin,13px);
   letter-spacing:.14em; text-transform:uppercase; color:var(--text-dim);
-  display:flex; align-items:center; gap:10px; margin:0 0 clamp(14px,2vmin,26px);
+  display:flex; align-items:center; gap:10px; margin:0 0 clamp(14px,3.56vmin,26px);
 }
 .eyebrow::before{ content:''; width:26px; height:1px; background:var(--text-faint); flex-shrink:0; }
 .eyebrow b{ color:var(--paper-dim); font-weight:500; }
 
 h2.stitle{
-  font-size:clamp(28px, 4vmin, 54px); font-weight:800; letter-spacing:-.01em;
-  color:var(--paper); line-height:1.06; margin:0 0 clamp(12px,2vmin,22px);
+  font-size:clamp(28px, 7.11vmin, 54px); font-weight:800; letter-spacing:-.01em;
+  color:var(--paper); line-height:1.06; margin:0 0 clamp(12px,3.56vmin,22px);
 }
-.slede{ font-size:clamp(14px,1.5vmin,19px); color:var(--text-dim); line-height:1.55; max-width:76ch; }
+.slede{ font-size:clamp(14px,2.67vmin,19px); color:var(--text-dim); line-height:1.55; max-width:76ch; }
 .slede strong{ color:var(--paper-dim); font-weight:600; }
 
 .slide-num{
-  position:absolute; bottom:22px; left:min(7vmin,96px);
+  position:absolute; bottom:22px; left:min(12.44vmin,96px);
   font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--text-faint);
 }
 .slide-title-tag{
-  position:absolute; top:22px; right:min(7vmin,96px);
+  position:absolute; top:22px; right:min(12.44vmin,96px);
   font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--text-faint);
   text-transform:uppercase; letter-spacing:.08em;
 }
@@ -135,20 +135,20 @@ h2.stitle{
 .clickzone.right{ right:0; cursor:e-resize; }
 
 /* ---------- COMPONENTS reused across slides ---------- */
-.grid2{ display:grid; grid-template-columns:1fr 1fr; gap:clamp(24px,4vmin,56px); align-items:center; width:100%; }
-.grid3{ display:grid; grid-template-columns:repeat(3,1fr); gap:clamp(14px,1.6vmin,22px); width:100%; }
-.grid4{ display:grid; grid-template-columns:repeat(4,1fr); gap:clamp(10px,1.4vmin,18px); width:100%; }
+.grid2{ display:grid; grid-template-columns:1fr 1fr; gap:clamp(24px,7.11vmin,56px); align-items:center; width:100%; }
+.grid3{ display:grid; grid-template-columns:repeat(3,1fr); gap:clamp(14px,2.84vmin,22px); width:100%; }
+.grid4{ display:grid; grid-template-columns:repeat(4,1fr); gap:clamp(10px,2.49vmin,18px); width:100%; }
 
-.card{ background:var(--card); border:1px solid var(--line-soft); border-radius:4px; padding:clamp(16px,2vmin,28px); }
+.card{ background:var(--card); border:1px solid var(--line-soft); border-radius:4px; padding:clamp(16px,3.56vmin,28px); }
 .chip{
   display:inline-flex; align-items:center; font-family:'JetBrains Mono',monospace; font-weight:700;
-  font-size:clamp(12px,1.2vmin,15px); padding:6px 14px; border-radius:20px; letter-spacing:.02em;
+  font-size:clamp(12px,2.13vmin,15px); padding:6px 14px; border-radius:20px; letter-spacing:.02em;
 }
 .arrowchain{ display:flex; align-items:center; flex-wrap:wrap; gap:8px; }
 .arrowchain span.sep{ color:var(--text-faint); font-family:'JetBrains Mono',monospace; }
 
 .badge{
-  font-family:'JetBrains Mono',monospace; font-size:clamp(11px,1.1vmin,13px); text-transform:uppercase;
+  font-family:'JetBrains Mono',monospace; font-size:clamp(11px,1.96vmin,13px); text-transform:uppercase;
   letter-spacing:.06em; padding:7px 16px; border-radius:20px; border:1px solid; display:inline-block;
 }
 .badge.confirmed{ color:var(--verde); border-color:var(--verde-soft); background:var(--verde-soft); }
@@ -157,24 +157,24 @@ h2.stitle{
 
 .statrow{ display:flex; justify-content:space-between; align-items:baseline; padding:14px 0; border-bottom:1px solid var(--line-soft); }
 .statrow:last-child{ border-bottom:none; }
-.statlabel{ font-size:clamp(13px,1.3vmin,17px); color:var(--text-dim); }
-.statval{ font-family:'JetBrains Mono',monospace; font-size:clamp(16px,1.8vmin,24px); color:var(--paper); }
+.statlabel{ font-size:clamp(13px,2.31vmin,17px); color:var(--text-dim); }
+.statval{ font-family:'JetBrains Mono',monospace; font-size:clamp(16px,3.2vmin,24px); color:var(--paper); }
 .statval.hi{ color:var(--cordoba); font-weight:600; }
 
 .barrow{ margin:14px 0; }
-.barlabel{ display:flex; justify-content:space-between; font-size:clamp(12px,1.2vmin,15px); color:var(--text-dim); margin-bottom:8px; }
-.bartrack{ height:clamp(18px,2.4vmin,30px); background:var(--card-2); border-radius:4px; overflow:hidden; }
+.barlabel{ display:flex; justify-content:space-between; font-size:clamp(12px,2.13vmin,15px); color:var(--text-dim); margin-bottom:8px; }
+.bartrack{ height:clamp(18px,4.27vmin,30px); background:var(--card-2); border-radius:4px; overflow:hidden; }
 .barfill{ height:100%; border-radius:4px; }
 
 .ballot-code{
-  font-family:'JetBrains Mono',monospace; font-weight:700; font-size:clamp(13px,1.4vmin,18px);
+  font-family:'JetBrains Mono',monospace; font-weight:700; font-size:clamp(13px,2.49vmin,18px);
   padding:8px 16px; border-radius:20px; display:inline-block; margin-bottom:14px;
 }
 
 .chart-wrap{ position:relative; width:100%; height:100%; }
 
-.checklist-row{ display:flex; align-items:center; gap:16px; padding:10px 0; font-size:clamp(14px,1.6vmin,20px); }
-.checkmark{ width:clamp(28px,2.6vmin,38px); height:clamp(28px,2.6vmin,38px); border-radius:50%; border:2px solid; flex-shrink:0; position:relative; }
+.checklist-row{ display:flex; align-items:center; gap:16px; padding:10px 0; font-size:clamp(14px,2.84vmin,20px); }
+.checkmark{ width:clamp(28px,4.62vmin,38px); height:clamp(28px,4.62vmin,38px); border-radius:50%; border:2px solid; flex-shrink:0; position:relative; }
 
 @media (max-width:760px){
   .grid2{ grid-template-columns:1fr; }
@@ -308,7 +308,7 @@ function boxplotSVG(panels, vmax, vmin, unitPct){
       svg += `<line x1="${px0-panelGap/2}" y1="${y0}" x2="${px0-panelGap/2}" y2="${y1+10}" style="stroke:var(--line)" stroke-width="2" stroke-dasharray="4,5"/>`;
     }
     const slotW = panelW/4;
-    const boxW = Math.min(96, slotW*0.62);
+    const boxW = Math.min(130, slotW*0.72);
     TYPES4.forEach((t,ti)=>{
       const cx = px0 + slotW*(ti+0.5);
       const values = BY_TYPE[panel.dataKey][t];
@@ -340,11 +340,11 @@ SLIDES.push({ tag:'', render:()=>`
   <div class="grid2">
     <div>
       <p class="eyebrow">Sitio interactivo · TFG Ciencia Política</p>
-      <h2 class="stitle" style="font-size:clamp(34px,5.4vmin,72px)">¿El tipo de<br><em style="color:var(--celeste); font-style:normal">boleta</em> importa?</h2>
+      <h2 class="stitle" style="font-size:clamp(34px,9.6vmin,72px)">¿El tipo de<br><em style="color:var(--celeste); font-style:normal">boleta</em> importa?</h2>
       <p class="slede">Un análisis descriptivo de las relaciones entre cuatro tipos de boletas electorales y los resultados electorales en cuatro provincias argentinas entre 2003 y 2023.</p>
     </div>
     <div style="display:flex; justify-content:center;">
-      <div style="background:linear-gradient(160deg,#f2ecd9,#e7dfc4); border-radius:6px; padding:clamp(20px,3vmin,34px); width:min(360px,80%); aspect-ratio:3/4; transform:rotate(-2deg); box-shadow:0 30px 70px -20px rgba(0,0,0,.7);">
+      <div style="background:linear-gradient(160deg,#f2ecd9,#e7dfc4); border-radius:6px; padding:clamp(20px,5.33vmin,34px); width:min(360px,80%); aspect-ratio:3/4; transform:rotate(-2deg); box-shadow:0 30px 70px -20px rgba(0,0,0,.7);">
         ${['#4fa6d9','#d8503c','#d9aa35','#4f9668'].map((c,i)=>`
           <div style="display:flex; align-items:center; gap:10px; padding:10px 0; border-bottom:${i<3?'1px solid rgba(0,0,0,.13)':'none'};">
             <div style="width:16px;height:16px;border-radius:50%;background:${c};flex-shrink:0;"></div>
@@ -366,7 +366,7 @@ SLIDES.push({ tag:'Etapa 1 · La chispa', render:()=>`
   <p class="slede" style="margin-bottom:36px;">Análisis descriptivo de las relaciones existentes entre los tipos de boletas electorales y los resultados electorales en cuatro provincias argentinas (2003-2023).</p>
   <div class="grid4">
     ${[['Autor','Gonzalo Sagarraga'],['Director','Dr. Carlos Varetto'],['Co-director','Dr. Marcelo Nazareno'],['Institución','Facultad de Ciencias Sociales de la Universidad Nacional de Córdoba']]
-      .map(([k,v])=>`<div class="card"><p class="mono" style="font-size:12px;color:var(--text-faint);text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px;">${k}</p><p style="font-size:clamp(14px,1.5vmin,18px);color:var(--paper);font-weight:600; line-height:1.3;">${v}</p></div>`).join('')}
+      .map(([k,v])=>`<div class="card"><p class="mono" style="font-size:12px;color:var(--text-faint);text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px;">${k}</p><p style="font-size:clamp(14px,2.67vmin,18px);color:var(--paper);font-weight:600; line-height:1.3;">${v}</p></div>`).join('')}
   </div>
   <p class="mono" style="font-size:12.5px;color:var(--text-faint); margin-top:22px;">Orientación: Investigación · Fecha de defensa: 8 de junio de 2026</p>
 `});
@@ -395,7 +395,7 @@ SLIDES.push({ tag:'Etapa 1 · La chispa', render:()=>`
 // ---- 4. LA PREGUNTA ----
 SLIDES.push({ tag:'Etapa 1 · La chispa', render:()=>`
   <p class="eyebrow">De la anomalía a la pregunta</p>
-  <h2 class="stitle" style="font-size:clamp(26px,3.4vmin,44px)">¿Por qué esta disparidad entre <span style="color:var(--celeste)">tramos de una misma boleta</span>?</h2>
+  <h2 class="stitle" style="font-size:clamp(26px,6.04vmin,44px)">¿Por qué esta disparidad entre <span style="color:var(--celeste)">tramos de una misma boleta</span>?</h2>
   <p class="slede" style="margin-bottom:20px;">Una primera explicación es intuitiva: el elector sabe menos sobre los candidatos legislativos que sobre la fórmula a gobernador. Pero esa hipótesis no explica por qué el salto se profundiza justo en <strong style="color:var(--rojo)">2011</strong>, cuando Córdoba reemplaza la boleta partidaria por la <strong style="color:var(--rojo)">BUS</strong>.</p>
   <p class="slede"><strong style="color:var(--paper-dim)">De esa pregunta surge el estudio:</strong> una comparación subnacional entre Córdoba, Entre Ríos, Santa Fe y Neuquén, cuatro provincias que usaron —o no— distintos instrumentos de votación entre 2003 y 2023, para describir su relación con el <strong style="color:var(--celeste)">voto en blanco</strong>, el <strong style="color:var(--rojo)">voto nulo</strong>, el <strong style="color:var(--amarillo)">voto cruzado</strong> y la <strong style="color:var(--verde)">participación electoral</strong>.</p>
 `});
@@ -425,8 +425,8 @@ ANTE.forEach((a,i)=>{
   SLIDES.push({ tag:'Etapa 2 · Ver qué se sabe', render:()=>`
     <p class="eyebrow" style="--dot:var(--${a.color})">Antecedentes teóricos <b>· ${i+1} de 6</b></p>
     <div style="width:44px; height:4px; background:var(--${a.color}); border-radius:2px; margin-bottom:18px;"></div>
-    <h2 class="stitle" style="font-size:clamp(26px,3.6vmin,46px); color:var(--${a.color})">${a.tag}</h2>
-    <p class="slede" style="font-size:clamp(16px,1.9vmin,23px); max-width:82ch; margin-bottom:24px; color:var(--text)">${a.html}</p>
+    <h2 class="stitle" style="font-size:clamp(26px,6.4vmin,46px); color:var(--${a.color})">${a.tag}</h2>
+    <p class="slede" style="font-size:clamp(16px,3.38vmin,23px); max-width:82ch; margin-bottom:24px; color:var(--text)">${a.html}</p>
     <p class="mono" style="font-size:13px;color:var(--${a.color}); opacity:.8;">${a.cite}</p>
   `});
 });
@@ -488,7 +488,7 @@ SLIDES.push({ tag:'Etapa 3 · Diseñar', render:()=>`
     ${[['BP','Boleta Partidaria','Entre Ríos · 1912','#4fa6d9'],['BUS','Boleta Única de Sufragio','Córdoba · 2011','#d8503c'],['BUT','Boleta Única por Tramos','Santa Fe · 2011','#d9aa35'],['BUE','Boleta Única Electrónica','Neuquén · 2019','#4f9668']]
       .map(([c,n,m,col])=>`<div class="card">
         <span class="ballot-code" style="background:${col}33;color:${col}">${c}</span>
-        <p style="font-size:clamp(14px,1.5vmin,18px);font-weight:600;color:var(--paper);margin-bottom:6px;">${n}</p>
+        <p style="font-size:clamp(14px,2.67vmin,18px);font-weight:600;color:var(--paper);margin-bottom:6px;">${n}</p>
         <p class="mono" style="font-size:12px;color:var(--text-faint);">${m}</p>
       </div>`).join('')}
   </div>
@@ -521,7 +521,7 @@ BALLOTS.forEach((b,i)=>{
         <p class="mono" style="font-size:12.5px;color:var(--text-faint); line-height:1.6;">${b.law}</p>
       </div>
       <div style="display:flex; justify-content:center;">
-        <img src="" data-ballot-img="${b.code}" style="max-width:100%; max-height:62vmin; border-radius:4px; box-shadow:0 24px 60px -15px var(--shadow-mid);" alt="${b.name}">
+        <img src="" data-ballot-img="${b.code}" style="max-width:100%; max-height:110.22vmin; border-radius:4px; box-shadow:0 24px 60px -15px var(--shadow-mid);" alt="${b.name}">
       </div>
     </div>
   `});
@@ -530,16 +530,16 @@ BALLOTS.forEach((b,i)=>{
 // ---- 16 (nueva). CÓMO MEDÍ CADA DIMENSIÓN ----
 SLIDES.push({ tag:'Etapa 3 · Diseñar', render:()=>`
   <p class="eyebrow">Diseñar la medición</p>
-  <h2 class="stitle" style="font-size:clamp(24px,3.2vmin,42px)">¿Cómo medí cada dimensión?</h2>
-  <div class="grid2" style="gap:clamp(10px,1.4vmin,18px); margin-top:8px;">
+  <h2 class="stitle" style="font-size:clamp(24px,5.69vmin,42px)">¿Cómo medí cada dimensión?</h2>
+  <div class="grid2" style="gap:clamp(10px,2.49vmin,18px); margin-top:8px;">
     ${[
       ['var(--rojo)','Voto en blanco','Votos en blanco / concurrencia (%). Se separa en categoría ejecutiva (VBE) y legislativa (VBL).'],
       ['var(--amarillo)','Voto nulo','Votos nulos / concurrencia (%). También ejecutiva (VNE) y legislativa (VNL).'],
       ['var(--celeste)','Voto cruzado','Índice de Pedersen adaptado: la dimensión temporal se reemplaza por la categoría de cargos. A mayor valor, más voto cruzado.'],
       ['var(--verde)','Participación','Porcentaje de electores habilitados que concurren a votar.'],
-    ].map(([c,t,d])=>`<div class="card" style="border-top:3px solid ${c};"><p class="mono" style="font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:${c};margin-bottom:8px;">${t}</p><p style="font-size:clamp(13px,1.35vmin,17px);color:var(--text);line-height:1.5;">${d}</p></div>`).join('')}
+    ].map(([c,t,d])=>`<div class="card" style="border-top:3px solid ${c};"><p class="mono" style="font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:${c};margin-bottom:8px;">${t}</p><p style="font-size:clamp(13px,2.4vmin,17px);color:var(--text);line-height:1.5;">${d}</p></div>`).join('')}
   </div>
-  <p class="slede" style="margin-top:18px;font-size:clamp(12.5px,1.25vmin,15.5px);">Ejecutivo y legislativo son "arenas electorales diferenciadas" (Varetto, 2007): el elector se comporta distinto según cómo se presenta la oferta (Malamud y De Luca, 2016).</p>
+  <p class="slede" style="margin-top:18px;font-size:clamp(12.5px,2.22vmin,15.5px);">Ejecutivo y legislativo son "arenas electorales diferenciadas" (Varetto, 2007): el elector se comporta distinto según cómo se presenta la oferta (Malamud y De Luca, 2016).</p>
 `});
 
 // ---- 16. METODOLOGÍA / CÓMO LEER LOS DATOS ----
@@ -615,13 +615,13 @@ VARS.forEach((v,i)=>{
     <div style="display:flex; flex-direction:column; height:100%; width:100%;">
       <div style="flex:0 0 auto;">
         <p class="eyebrow">Variable <b>${i+1} de 4</b></p>
-        <h2 class="stitle" style="font-size:clamp(22px,2.8vmin,36px); margin-bottom:8px;">${v.title}</h2>
+        <h2 class="stitle" style="font-size:clamp(22px,4.98vmin,36px); margin-bottom:8px;">${v.title}</h2>
       </div>
       <div class="card" style="flex:1 1 auto; min-height:0; padding:10px 16px; margin:10px 0; display:flex;">
         <div class="chart-wrap" style="flex:1; min-height:0;">${boxplotSVG(v.panels, v.vmax, v.vmin, true)}</div>
       </div>
       <div style="flex:0 0 auto; display:flex; align-items:center; justify-content:space-between; gap:20px; flex-wrap:wrap;">
-        <p class="slede" style="font-size:clamp(12.5px,1.3vmin,15.5px); max-width:64ch; margin:0;">${v.cap}</p>
+        <p class="slede" style="font-size:clamp(12.5px,2.31vmin,15.5px); max-width:64ch; margin:0;">${v.cap}</p>
         <div style="display:flex; gap:18px; flex-shrink:0;">
           <span class="mono" style="font-size:11.5px; color:var(--text-dim); display:flex; align-items:center; gap:6px;"><i style="width:16px;height:0;border-top:2.4px solid var(--paper-dim); display:inline-block;"></i>Mediana</span>
           <span class="mono" style="font-size:11.5px; color:var(--text-dim); display:flex; align-items:center; gap:6px;"><i style="width:16px;height:0;border-top:2.4px dashed var(--paper); display:inline-block;"></i>Media</span>
@@ -663,7 +663,7 @@ PROVS.forEach((p,i)=>{
     <p class="eyebrow">Antes y después de la reforma <b>· ${i+1} de 3</b></p>
     <h2 class="stitle">${p.name}</h2>
     <p class="mono" style="font-size:13px;color:var(--text-faint); margin-bottom:24px;">${p.meta} · promedio de elecciones antes y después, las cuatro dimensiones</p>
-    <div class="card" style="max-width:900px; padding:clamp(16px,2vmin,28px);">
+    <div class="card" style="max-width:900px; padding:clamp(16px,3.56vmin,28px);">
       ${p.dims.map(([label,before,after])=>{
         const up = after > before;
         const eq = Math.abs(after-before) < 0.05;
@@ -671,10 +671,10 @@ PROVS.forEach((p,i)=>{
         const fmt = (v,isPart)=> (isPart ? v.toFixed(1) : v.toFixed(2)).replace('.',',') + (label==='Participación'?'%':(label.indexOf('cruzado')>-1?' pts':'%'));
         const isPart = label==='Participación';
         return `<div style="display:flex; align-items:center; justify-content:space-between; gap:16px; padding:14px 6px; border-bottom:1px solid var(--line-soft);">
-          <span style="font-size:clamp(13px,1.3vmin,16px); color:var(--text-dim); flex:1;">${label}</span>
-          <span class="mono" style="font-size:clamp(13px,1.4vmin,17px); color:var(--paper-dim); width:100px; text-align:right;">${fmt(before,isPart)}</span>
-          <span style="font-size:clamp(14px,1.5vmin,19px); color:${eq?'var(--text-faint)':p.color}; width:28px; text-align:center;">${arrow}</span>
-          <span class="mono" style="font-size:clamp(13px,1.4vmin,17px); color:${eq?'var(--text-dim)':p.color}; font-weight:700; width:100px; text-align:right;">${fmt(after,isPart)}</span>
+          <span style="font-size:clamp(13px,2.31vmin,16px); color:var(--text-dim); flex:1;">${label}</span>
+          <span class="mono" style="font-size:clamp(13px,2.49vmin,17px); color:var(--paper-dim); width:100px; text-align:right;">${fmt(before,isPart)}</span>
+          <span style="font-size:clamp(14px,2.67vmin,19px); color:${eq?'var(--text-faint)':p.color}; width:28px; text-align:center;">${arrow}</span>
+          <span class="mono" style="font-size:clamp(13px,2.49vmin,17px); color:${eq?'var(--text-dim)':p.color}; font-weight:700; width:100px; text-align:right;">${fmt(after,isPart)}</span>
         </div>`;
       }).join('')}
       <div style="display:flex; justify-content:flex-end; gap:100px; padding:10px 6px 0; margin-top:2px;">
@@ -692,7 +692,7 @@ SLIDES.push({ tag:'Etapa 5 · Confrontar con lo esperado', render:()=>`
   <div class="grid2" style="align-items:center;">
     <div>
       <p class="eyebrow">Antes de repasar cada hipótesis</p>
-      <h2 class="stitle" style="font-size:clamp(24px,3vmin,38px)">La huella de cada boleta</h2>
+      <h2 class="stitle" style="font-size:clamp(24px,5.33vmin,38px)">La huella de cada boleta</h2>
       <p class="slede" style="margin-bottom:20px;">Para cada una de las cuatro dimensiones de las hipótesis, cuánto se aparta el promedio de cada instrumento del promedio entre los cuatro (puntaje Z). Más lejos del centro, más se destaca esa boleta —para bien o para mal.</p>
       <div style="display:flex; flex-direction:column; gap:10px;">
         ${['BP — Boleta Partidaria','BUS — Boleta Única de Sufragio','BUT — Boleta Única por Tramos','BUE — Boleta Única Electrónica'].map((label)=>{
@@ -701,7 +701,7 @@ SLIDES.push({ tag:'Etapa 5 · Confrontar con lo esperado', render:()=>`
         }).join('')}
       </div>
     </div>
-    <div class="card" style="height:min(60vmin,540px); padding:14px;">
+    <div class="card" style="height:min(106.67vmin,540px); padding:14px;">
       <div class="chart-wrap">${radarSVG()}</div>
     </div>
   </div>
@@ -722,7 +722,7 @@ HYPOTHESES.forEach((h,i)=>{
     </div>` : '';
   SLIDES.push({ tag:'Etapa 5 · Confrontar con lo esperado', render:()=>`
     <p class="eyebrow">Hipótesis <b>· ${h.n} de 4</b></p>
-    <h2 class="stitle" style="font-size:clamp(24px,3.2vmin,40px)">${h.title}</h2>
+    <h2 class="stitle" style="font-size:clamp(24px,5.69vmin,40px)">${h.title}</h2>
     <p class="slede" style="max-width:80ch; margin-bottom:26px;">${h.text}</p>
     ${ordersBlock}
     <span class="badge ${verdictClass(h.verdict)}">${h.label}</span>
@@ -733,8 +733,8 @@ HYPOTHESES.forEach((h,i)=>{
 // ---- 28. CONCLUSIONES: statement ----
 SLIDES.push({ tag:'Etapa 6 · Decir solo lo que se puede', render:()=>`
   <p class="eyebrow">Consideraciones finales</p>
-  <h2 class="stitle" style="font-size:clamp(38px,6vmin,88px)">El tipo de <em style="color:var(--celeste); font-style:normal">boleta</em> importa.</h2>
-  <p class="slede" style="font-size:clamp(15px,1.7vmin,20px); max-width:80ch; margin:20px 0 30px;">El diseño del instrumento con el que votamos no es neutral: parece exhibir una relación con tres de las cuatro dimensiones estudiadas.</p>
+  <h2 class="stitle" style="font-size:clamp(38px,10.67vmin,88px)">El tipo de <em style="color:var(--celeste); font-style:normal">boleta</em> importa.</h2>
+  <p class="slede" style="font-size:clamp(15px,3.02vmin,20px); max-width:80ch; margin:20px 0 30px;">El diseño del instrumento con el que votamos no es neutral: parece exhibir una relación con tres de las cuatro dimensiones estudiadas.</p>
   <div style="display:flex; flex-direction:column; gap:4px; max-width:520px;">
     ${[['Voto en blanco',true],['Voto nulo',true],['Voto cruzado',true],['Participación electoral',false]].map(([l,yes])=>`
       <div class="checklist-row">
@@ -752,22 +752,22 @@ SLIDES.push({ tag:'Etapa 6 · Decir solo lo que se puede', render:()=>`
 // ---- 31 (nueva). CAMINOS ABIERTOS ----
 SLIDES.push({ tag:'Etapa 6 · Decir solo lo que se puede', render:()=>`
   <p class="eyebrow">Después de la tesis</p>
-  <h2 class="stitle" style="font-size:clamp(24px,3.2vmin,42px)">Lo que la investigación deja abierto</h2>
-  <div style="display:flex;flex-direction:column;gap:clamp(8px,1.2vmin,14px);margin-top:10px;max-width:980px;">
+  <h2 class="stitle" style="font-size:clamp(24px,5.69vmin,42px)">Lo que la investigación deja abierto</h2>
+  <div style="display:flex;flex-direction:column;gap:clamp(8px,2.13vmin,14px);margin-top:10px;max-width:980px;">
     ${[
       ['var(--celeste)','Diseño mixto','Complementar los datos agregados con grupos focales de electores que votaron con cada tipo de boleta.'],
       ['var(--rojo)','Ampliar el N','Sumar las 24 jurisdicciones argentinas, extender la serie hasta 1983 o incorporar casos de otros países.'],
       ['var(--amarillo)','Profundizar el contexto','Analizar los diarios de sesiones de cada reforma para entender la voluntad legislativa detrás de cada diseño.'],
       ['var(--verde)','Mejorar la medición','Construir el voto cruzado con datos a nivel de mesa y ponderar el promedio interprovincial por peso electoral.'],
       ['var(--celeste)','Diseño experimental','Aprovechar pruebas piloto de usabilidad —como la de CABA en 2005— para aislar el efecto del instrumento.'],
-    ].map(([c,t,d],i)=>`<div style="display:flex;gap:16px;align-items:baseline;padding:10px 0;border-bottom:1px solid var(--line-soft);"><span class="mono" style="color:${c};font-size:clamp(15px,1.6vmin,20px);font-weight:700;flex-shrink:0;">0${i+1}</span><div><p style="font-size:clamp(15px,1.6vmin,20px);font-weight:600;color:var(--paper);margin-bottom:3px;">${t}</p><p style="font-size:clamp(12.5px,1.25vmin,15.5px);color:var(--text-dim);line-height:1.45;">${d}</p></div></div>`).join('')}
+    ].map(([c,t,d],i)=>`<div style="display:flex;gap:16px;align-items:baseline;padding:10px 0;border-bottom:1px solid var(--line-soft);"><span class="mono" style="color:${c};font-size:clamp(15px,2.84vmin,20px);font-weight:700;flex-shrink:0;">0${i+1}</span><div><p style="font-size:clamp(15px,2.84vmin,20px);font-weight:600;color:var(--paper);margin-bottom:3px;">${t}</p><p style="font-size:clamp(12.5px,2.22vmin,15.5px);color:var(--text-dim);line-height:1.45;">${d}</p></div></div>`).join('')}
   </div>
 `});
 
 // ---- 29. CIERRE: cita ----
 SLIDES.push({ tag:'Etapa 6 · Decir solo lo que se puede', render:()=>`
   <p class="eyebrow">Para cerrar</p>
-  <p style="font-size:clamp(22px,3.2vmin,36px); line-height:1.4; font-style:italic; color:var(--paper); max-width:78ch; margin-bottom:24px;">
+  <p style="font-size:clamp(22px,5.69vmin,36px); line-height:1.4; font-style:italic; color:var(--paper); max-width:78ch; margin-bottom:24px;">
     "Digamos que el propósito de la ciencia social es ayudar a los ciudadanos y a los diseñadores de las políticas a comprender mejor el mundo, con la idea de cambiar ese mundo. La ciencia social debe proporcionar respuestas útiles a preguntas útiles."
   </p>
   <p class="mono" style="font-size:14px;color:var(--text-faint);">— Gerring (2014, pp. 414-415)</p>
@@ -778,10 +778,10 @@ const QR_SITE_IMG = "data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIGlkPSJMY
 SLIDES.push({ tag:'', render:()=>`
   <div style="text-align:center; width:100%;">
     <p class="eyebrow" style="justify-content:center;"><span></span>Trabajo Final de Grado</p>
-    <h2 class="stitle" style="font-size:clamp(34px,5vmin,64px);">Gracias.</h2>
+    <h2 class="stitle" style="font-size:clamp(34px,8.89vmin,64px);">Gracias.</h2>
     <p class="slede" style="max-width:60ch; margin:14px auto 26px;">El sitio completo incluye un explorador interactivo, mapas de calor por provincia y el detalle completo de las cuatro hipótesis.</p>
     <div style="background:#000; padding:16px; border-radius:10px; width:fit-content; margin:0 auto 20px; border:1px solid var(--line-soft);">
-      <img src="${QR_SITE_IMG}" alt="Código QR al sitio completo" style="display:block; width:clamp(110px,11vmin,150px); height:auto;">
+      <img src="${QR_SITE_IMG}" alt="Código QR al sitio completo" style="display:block; width:clamp(110px,19.56vmin,150px); height:auto;">
     </div>
     <a href="index.html" class="mono" style="display:inline-flex; align-items:center; gap:10px; border:1px solid var(--celeste); color:var(--celeste); padding:14px 28px; border-radius:30px; text-decoration:none; font-size:14px; letter-spacing:.03em;">→ Ir al sitio completo</a>
     <div style="margin-top:104px; padding-top:24px; border-top:1px solid var(--line-soft); display:block;">
