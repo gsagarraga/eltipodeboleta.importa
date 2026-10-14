@@ -193,7 +193,7 @@ h2.stitle{
   grid-template-areas:"head" "chart" "foot" "note";
   grid-template-rows:auto 1fr auto auto;
   height:100%; width:100%;
-  row-gap:10px;
+  row-gap:clamp(10px,1.8vmin,36px);
 }
 .var-slide .var-head{ grid-area:head; }
 .var-slide .var-note{ grid-area:note; }
@@ -207,7 +207,7 @@ h2.stitle{
     grid-template-columns:minmax(190px,1.25fr) 3fr;
     grid-template-rows:auto 1fr auto;
     column-gap:clamp(22px,calc(3.4vmin*var(--k)),220px);
-    row-gap:6px;
+    row-gap:clamp(6px,1.4vmin,28px);
   }
   .var-slide .var-head{ align-self:start; }
   .var-slide .var-foot{ flex-direction:column; align-items:flex-start; justify-content:flex-start; align-self:start; gap:10px; }
@@ -280,52 +280,42 @@ h2.stitle{
   .p3 .stat2{ grid-template-columns:1fr; }
 }
 
-/* ---- Diapositivas de boletas: la imagen es la protagonista ---- */
-.ballot-grid{ display:flex; gap:clamp(24px,5vmin,160px); align-items:stretch; width:100%; height:var(--avail-h); }
-.ballot-text{ flex:0 0 31%; min-width:0; }
+/* ---- Diapositivas de boletas: mismo esquema en las cuatro (texto a la izquierda, imagen en marco a la derecha) ---- */
+.ballot-grid{ display:flex; gap:clamp(24px,4vmin,120px); align-items:stretch; width:100%; height:var(--avail-h); }
+.ballot-text{ flex:0 0 34%; min-width:0; }
+.bt-cols{ display:block; }
 .ballot-fig{
-  margin:0; flex:1 1 0; min-width:0; min-height:0; container-type:size;
-  display:flex; flex-direction:column; align-items:center; justify-content:flex-start; gap:clamp(6px,1.2vmin,20px);
-  cursor:zoom-in; position:relative;
+  margin:0; flex:1 1 0; min-width:0; min-height:0; display:flex; flex-direction:column; align-items:center; justify-content:center;
+  gap:clamp(6px,1.2vmin,20px); cursor:zoom-in; position:relative;
+  background:var(--card); border:1px solid var(--line-soft); border-top:3px solid var(--bc); border-radius:4px;
+  padding:clamp(10px,2vmin,36px);
 }
+.ballot-fig .imgbox{ flex:1 1 0; min-height:0; width:100%; container-type:size; }
 .ballot-fig img{
-  display:block; width:auto; height:auto; max-width:100cqw; max-height:calc(100cqh - clamp(22px,3.4vmin,48px));
-  background:#fff; border:1px solid var(--line-soft); border-radius:4px;
-  box-shadow:0 0 0 clamp(6px,1vmin,16px) color-mix(in srgb, var(--bc) 18%, transparent), 0 34px 80px -20px var(--shadow-mid);
-  transition:transform .25s ease;
+  display:block; width:100%; height:100%; object-fit:contain; border-radius:3px;
+  box-shadow:0 14px 40px -16px var(--shadow-mid); transition:transform .25s ease;
 }
 .ballot-fig:hover img{ transform:scale(1.012); }
 .ballot-fig figcaption{
-  font-size:clamp(10px,1.4vmin,15px); letter-spacing:.08em; text-transform:uppercase; color:var(--text-faint); opacity:.85;
+  flex:0 0 auto; font-size:clamp(10px,1.4vmin,15px); letter-spacing:.08em; text-transform:uppercase; color:var(--text-faint); opacity:.85;
   display:flex; align-items:center; gap:8px;
 }
 .ballot-fig figcaption::before{ content:""; width:7px; height:7px; border-radius:50%; background:var(--bc); }
-.ballot-grid.portrait .ballot-text{ flex:1 1 0; }
-.ballot-grid.portrait .ballot-fig{ flex:0 0 calc((var(--avail-h) - clamp(22px,3.4vmin,48px)) * .6242 + 4px); max-width:46vw; }
-.ballot-grid.wide{ flex-direction:column; gap:clamp(10px,2vmin,60px); }
-.ballot-grid.wide .ballot-text{ flex:0 0 auto; width:100%; }
-.ballot-grid.wide .ballot-fig{ width:100%; }
 @media (max-aspect-ratio:3/2){
-  .ballot-grid{ flex-direction:column; gap:clamp(10px,2vmin,60px); }
+  .ballot-grid{ flex-direction:column; gap:clamp(10px,2vmin,40px); }
   .ballot-text{ flex:0 0 auto; width:100%; }
-  .ballot-fig{ width:100%; }
-  .ballot-grid.portrait{ flex-direction:row; }
-  .ballot-grid.portrait .ballot-text{ flex:1 1 0; width:auto; }
-  .ballot-grid.portrait .ballot-fig{ width:auto; max-width:42vw; }
+  .bt-cols{ display:grid; grid-template-columns:1fr 1.3fr; gap:clamp(20px,4vmin,80px); align-items:start; }
+  .bt-cols p.mono{ margin:.5em 0 0 !important; }
+  .bt-cols .stitle{ margin-bottom:0; }
 }
 @media (max-width:700px){
-  .ballot-grid, .ballot-grid.portrait{ flex-direction:column; height:auto; }
-  .ballot-fig, .ballot-grid.portrait .ballot-fig{ width:100%; container-type:normal; align-items:center; }
-  .ballot-text, .ballot-grid.portrait .ballot-text{ width:100%; flex:0 0 auto; }
-  .ballot-fig img, .ballot-grid.portrait .ballot-fig img{ width:100%; max-width:100%; max-height:none; }
+  .ballot-grid{ flex-direction:column; height:auto; }
+  .bt-cols{ display:block; }
+  .ballot-fig{ width:100%; }
+  .ballot-fig .imgbox{ container-type:normal; flex:0 0 auto; }
+  .ballot-fig img{ width:100%; height:auto; max-width:100%; }
+  .ballot-text{ width:100%; flex:0 0 auto; }
 }
-.ballot-grid.wide .ballot-code{ display:inline-block; vertical-align:middle; }
-.ballot-grid.wide .stitle{ display:inline-block; vertical-align:middle; margin:0 0 0 .6em !important; }
-.ballot-grid.wide .bt-cols p.mono{ margin:.5em 0 0 !important; }
-
-.ballot-grid.landscape .bt-cols{ display:block; }
-@media (max-aspect-ratio:3/2) and (min-width:701px){
-  .ballot-grid.landscape .bt-cols{ display:grid; }
   .ballot-grid.landscape .bt-cols p.mono{ margin:.5em 0 0 !important; }
   .ballot-grid.landscape .bt-cols .stitle{ margin-bottom:0; }
 }
@@ -799,13 +789,13 @@ BALLOTS.forEach((b,i)=>{
   const body = `<p class="slede" style="margin-bottom:16px;">${b.desc}</p>
         <p class="mono" style="font-size:clamp(12.5px,calc(1.74vmin*var(--k)),60px);color:var(--text-faint); line-height:1.6;">${b.law}</p>`;
   SLIDES.push({ tag:'Etapa 3 · Diseñar', render:()=>`
-    <div class="ballot-grid ${mode}">
+    <div class="ballot-grid">
       <div class="ballot-text">
         <p class="eyebrow">Instrumento <b>· ${i+1} de 4</b></p>
-        ${mode==='portrait' ? head+body : `<div class="bt-cols"><div>${head}</div><div class="bt-body">${body}</div></div>`}
+        <div class="bt-cols"><div>${head}</div><div class="bt-body">${body}</div></div>
       </div>
       <figure class="ballot-fig" style="--bc:${b.color};">
-        <img src="" width="${bw}" height="${bh}" data-ballot-img="${b.code}" alt="${b.name}" title="Click para ampliar">
+        <div class="imgbox"><img src="" width="${bw}" height="${bh}" data-ballot-img="${b.code}" alt="${b.name}" title="Click para ampliar"></div>
         <figcaption class="mono">Click para ampliar</figcaption>
       </figure>
     </div>
@@ -1030,6 +1020,8 @@ window.BALLOT_IMAGES = {
    RENDER + NAVEGACIÓN
 ===================================================================== */
 const _fitCache = {};
+const FIT_GROUPS = [[5,6,7,8,9,10],[11,12,18],[14,15,16,17],[19,20,21,22,23,24,25],[26,27,28,29]];
+const FIT_BREATH = 0.94;
 const deck = document.getElementById('deck');
 let current = 0;
 
@@ -1169,16 +1161,11 @@ window.addEventListener('hashchange', ()=>{
 });
 
 /* ---- Ajuste automático: cada slide crece hasta llenar la ventana sin desbordar (se recalcula al cambiar de tamaño) ---- */
-function fitSlide(el, force){
-  if(!el) return;
-  if(innerWidth <= 700){ el.style.removeProperty('--k'); return; }
-  const key = innerWidth+'x'+innerHeight+':'+el.dataset.index;
-  if(force) delete _fitCache[key];
-  if(_fitCache[key]){ el.style.setProperty('--k', _fitCache[key]); return; }
+function fitBest(el){
   const fits = (k)=>{
     el.style.setProperty('--k', k);
     const cs = getComputedStyle(el), top = el.getBoundingClientRect().top;
-    const lim = el.clientHeight - parseFloat(cs.paddingBottom) * 0.8;
+    const lim = el.clientHeight - parseFloat(cs.paddingBottom) * 0.9;
     let bot = 0, right = 0, bad = false;
     el.querySelectorAll('*').forEach(c=>{
       if(c.closest('.slide-num') || (c.closest('svg') && c.tagName!=='svg')) return;
@@ -1188,13 +1175,8 @@ function fitSlide(el, force){
       if(r.width && r.height){ bot = Math.max(bot, r.bottom - top); right = Math.max(right, r.right); }
       const cd = c.closest('.card'); if(cd && c!==cd && r.height && r.bottom > cd.getBoundingClientRect().bottom - 3) bad = true;
     });
-    const bi = el.querySelector('.ballot-fig img');
-    if(bi && innerWidth > 700){
-      const g = bi.closest('.ballot-grid'), th = g.classList.contains('wide') ? 0.48 : g.classList.contains('portrait') ? 0.72 : 0.62;
-      const wideScr = innerWidth/innerHeight >= 1.5;
-      const th2 = wideScr ? th : (g.classList.contains('portrait') ? 0.6 : g.classList.contains('wide') ? 0.34 : 0.45);
-      if(bi.getBoundingClientRect().height < el.clientHeight*th2) bad = true;
-    }
+    const ib = el.querySelector('.ballot-fig .imgbox');
+    if(ib && innerWidth/innerHeight < 1.5 && ib.getBoundingClientRect().height < el.clientHeight*0.36) bad = true;
     const ch = Array.from(el.querySelectorAll('.chart-wrap'));
     if(ch.some(w=>w.getBoundingClientRect().height < el.clientHeight*(w.querySelector('.db-wide') ? 0.44 : 0.36))) bad = true;
     const vh = el.querySelector('.var-head'), vc = el.querySelector('.var-chart-card');
@@ -1206,11 +1188,31 @@ function fitSlide(el, force){
   };
   let lo = 0.6, hi = 2.2, best = 0.6;
   if(fits(hi)) best = hi;
-  else { for(let n=0;n<10;n++){ const mid=(lo+hi)/2; if(fits(mid)){ best=mid; lo=mid; } else hi=mid; } }
+  else { for(let n=0;n<9;n++){ const mid=(lo+hi)/2; if(fits(mid)){ best=mid; lo=mid; } else hi=mid; } }
   best = Math.floor(best*100)/100;
   while(best > 0.6 && !fits(best)) best = Math.floor((best-0.02)*100)/100;
-  _fitCache[key] = best;
-  el.style.setProperty('--k', best);
+  return best;
+}
+/* Un solo factor de escala para todo el deck (el más grande que entra en TODAS las diapositivas): tamaños de texto parejos entre slides */
+function fitAll(){
+  const key = innerWidth+'x'+innerHeight;
+  const all = Array.from(document.querySelectorAll('.slide'));
+  if(!_fitCache[key]){
+    const best = all.map(el=>fitBest(el));
+    const ks = best.slice();
+    FIT_GROUPS.forEach(g=>{
+      const m = Math.min(...g.map(n=>best[n-1]));
+      g.forEach(n=>{ ks[n-1] = m; });
+    });
+    _fitCache[key] = ks.map(k=>Math.max(0.6, Math.floor(k*FIT_BREATH*100)/100));
+  }
+  _fitCache[key].forEach((k,i)=>all[i].style.setProperty('--k', k));
+}
+function fitSlide(el, force){
+  if(!el) return;
+  if(innerWidth <= 700){ document.querySelectorAll('.slide').forEach(e=>e.style.removeProperty('--k')); return; }
+  if(force) delete _fitCache[innerWidth+'x'+innerHeight];
+  fitAll();
 }
 function fitSlides(){
   for(const k in _fitCache) delete _fitCache[k];
