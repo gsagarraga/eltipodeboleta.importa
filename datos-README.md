@@ -55,3 +55,4 @@ You may copy, redistribute and adapt the data, including commercially, as long a
 - Sitio / Site: https://gsagarraga.github.io/eltipodeboleta.importa/
 - CSV: https://gsagarraga.github.io/eltipodeboleta.importa/tfg-boletas-datos.csv
 - TFG completo / Full thesis: https://rdu.unc.edu.ar/items/b8fe7c5a-3a95-4fec-8158-7202b0d90041
+- 
