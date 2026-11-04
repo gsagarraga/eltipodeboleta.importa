@@ -22,9 +22,19 @@
     display:flex;align-items:center;justify-content:center;transition:transform .08s,filter .08s}
   button:active{transform:scale(.97);filter:brightness(1.15)}
   button:disabled{opacity:.35}
-  #next{flex:3;background:var(--celeste);font-size:30px;font-weight:600;flex-direction:column;gap:6px}
-  #next span{font-size:84px;line-height:1}
-  #prev{flex:1.2;background:var(--card);font-size:22px;font-weight:500;gap:10px}
+  #ahora{background:var(--card);border-radius:18px;padding:14px 16px}
+  #ahora .num{font-size:13px;color:var(--sub);display:flex;justify-content:space-between;gap:8px}
+  #ahora .num b{color:var(--txt);font-size:15px}
+  #ahora .tit{font-size:20px;font-weight:600;line-height:1.25;margin-top:6px}
+  .nav{flex-direction:column;align-items:stretch;text-align:left;padding:16px 18px;gap:6px}
+  .nav .dir{font-size:15px;font-weight:600;opacity:.85}
+  .nav .t{font-size:17px;line-height:1.3;font-weight:500;
+    display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+  .nav .n{opacity:.7;font-weight:400}
+  #next{flex:2.4;background:var(--celeste)}
+  #next .t{font-size:22px;font-weight:600}
+  #prev{flex:1.3;background:var(--card)}
+  #prev .t{color:var(--sub)}
   .extra{display:flex;gap:12px}
   .extra button{flex:1;background:var(--card);font-size:15px;padding:14px;color:var(--sub);border-radius:16px}
   #ayuda{text-align:center;color:var(--sub);font-size:15px;line-height:1.5;padding:24px}
@@ -36,8 +46,12 @@
     <strong>Control remoto</strong>
     <div id="estado"><div id="punto"></div><span id="txt">Conectando…</span></div>
   </header>
-  <button id="prev" disabled>← Atrás</button>
-  <button id="next" disabled><span>→</span>Siguiente</button>
+  <section id="ahora">
+    <div class="num"><span id="etapa">En pantalla</span><b id="contador">– / –</b></div>
+    <div class="tit" id="titActual">…</div>
+  </section>
+  <button id="prev" class="nav" disabled><span class="dir">← Anterior</span><span class="t" id="titPrev"></span></button>
+  <button id="next" class="nav" disabled><span class="dir">Siguiente →</span><span class="t" id="titNext"></span></button>
   <div class="extra">
     <button id="first" disabled>⇤ Inicio</button>
     <button id="last" disabled>Final ⇥</button>
@@ -82,7 +96,8 @@
 
   function abrir() {
     conn = peer.connect(destino, { reliable: true });
-    conn.on('open', () => { intentos = 0; estado('Conectado', 'ok'); });
+    conn.on('open', () => { intentos = 0; estado('Conectado', 'ok'); conn.send({ accion: 'estado' }); });
+    conn.on('data', mostrar);
     conn.on('close', reintentar);
     conn.on('error', reintentar);
   }
@@ -91,6 +106,27 @@
     estado('Reconectando…', 'mal');
     if (intentos++ < 20) setTimeout(conectar, 1500);
     else estado('Sin conexión. Volvé a escanear el QR', 'mal');
+  }
+
+  const $ = id => document.getElementById(id);
+  const dos = n => String(n).padStart(2, '0');
+  function poner(el, info, vacio) {
+    el.innerHTML = '';
+    if (!info) { el.textContent = vacio; return; }
+    const n = document.createElement('span');
+    n.className = 'n';
+    n.textContent = dos(info.n) + ' · ';
+    el.append(n, document.createTextNode(info.titulo));
+  }
+  function mostrar(d) {
+    if (!d || d.accion !== 'estado' || !d.actual) return;
+    $('contador').textContent = dos(d.actual.n) + ' / ' + dos(d.total);
+    $('etapa').textContent = d.actual.etapa || 'En pantalla';
+    $('titActual').textContent = d.actual.titulo;
+    poner($('titPrev'), d.anterior, 'Es la primera');
+    poner($('titNext'), d.siguiente, 'Es la última');
+    $('prev').disabled = !d.anterior;
+    $('next').disabled = !d.siguiente;
   }
 
   function enviar(accion) {

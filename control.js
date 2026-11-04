@@ -36,6 +36,41 @@
     });
   }
 
+  // ---------- Qué diapositiva se está viendo ----------
+  const limpiar = t => (t || '').replace(/\s+/g, ' ').trim();
+  function diapos() { return Array.from(document.querySelectorAll('.slide')); }
+  function indiceActual() {
+    try { if (typeof current === 'number') return current; } catch (e) {}
+    const els = diapos();
+    const i = els.findIndex(el => el.classList.contains('active'));
+    return i < 0 ? 0 : i;
+  }
+  function titulo(i) {
+    const el = diapos()[i];
+    let t = '';
+    if (el) {
+      for (const sel of ['.stitle', 'h1', 'h2', 'h3', 'blockquote', '.eyebrow']) {
+        const h = el.querySelector(sel);
+        if (!h) continue;
+        const c = h.cloneNode(true);
+        c.querySelectorAll('br').forEach(br => br.replaceWith(' '));
+        if (limpiar(c.textContent)) { t = limpiar(c.textContent); break; }
+      }
+    }
+    if (!t) { try { t = limpiar(SLIDES[i].tag); } catch (e) {} }
+    if (!t) t = 'Diapositiva ' + (i + 1);
+    return t.length > 90 ? t.slice(0, 87) + '…' : t;
+  }
+  function etapa(i) {
+    try { return limpiar(SLIDES[i].tag); } catch (e) { return ''; }
+  }
+  function estadoDiapo() {
+    const total = diapos().length;
+    const i = indiceActual();
+    const info = n => (n >= 0 && n < total) ? { n: n + 1, titulo: titulo(n), etapa: etapa(n) } : null;
+    return { accion: 'estado', total, actual: info(i), anterior: info(i - 1), siguiente: info(i + 1) };
+  }
+
   // ---------- Interfaz en la compu ----------
   const css = document.createElement('style');
   css.textContent = `
@@ -87,6 +122,16 @@
 
   // ---------- Conexión ----------
   let peer, conectados = 0;
+  const conexiones = new Set();
+  let ultimo = -1;
+  function difundir() {
+    const est = estadoDiapo();
+    conexiones.forEach(c => { try { c.open && c.send(est); } catch (e) {} });
+  }
+  setInterval(() => {
+    const i = indiceActual();
+    if (i !== ultimo) { ultimo = i; difundir(); }
+  }, 200);
 
   function idNuevo() {
     return 'tfg-' + Math.random().toString(36).slice(2, 8);
@@ -111,15 +156,19 @@
     peer.on('connection', conn => {
       conn.on('open', () => {
         conectados++;
+        conexiones.add(conn);
+        conn.send(estadoDiapo());
         panel.classList.remove('on');
         avisar('📱 Control conectado');
         estado('Conectado ✔');
       });
       conn.on('data', d => {
         if (d && d.accion === 'ping') return conn.send({ accion: 'pong' });
+        if (d && d.accion === 'estado') return conn.send(estadoDiapo());
         if (d && d.accion) apretar(d.accion);
       });
       conn.on('close', () => {
+        conexiones.delete(conn);
         conectados = Math.max(0, conectados - 1);
         if (!conectados) { avisar('📱 Control desconectado'); estado('Esperando conexión…'); }
       });
