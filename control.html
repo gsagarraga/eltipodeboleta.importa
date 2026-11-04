@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="theme-color" content="#11161d">
+<title>Control remoto</title>
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#11161d;--card:#1b2430;--txt:#f4f6f8;--sub:#8a96a6;
+        --celeste:#4fa6d9;--rojo:#d8503c;--amarillo:#d9aa35;--verde:#4f9668}
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  html,body{margin:0;height:100%;background:var(--bg);color:var(--txt);
+    font-family:Rubik,system-ui,sans-serif;overscroll-behavior:none;touch-action:manipulation;user-select:none}
+  main{height:100%;display:flex;flex-direction:column;gap:12px;
+    padding:calc(14px + env(safe-area-inset-top)) 16px calc(16px + env(safe-area-inset-bottom))}
+  header{display:flex;align-items:center;justify-content:space-between;font-size:15px}
+  #estado{display:flex;align-items:center;gap:8px;color:var(--sub)}
+  #punto{width:10px;height:10px;border-radius:50%;background:var(--amarillo)}
+  #punto.ok{background:var(--verde)} #punto.mal{background:var(--rojo)}
+  button{font-family:inherit;border:0;border-radius:22px;color:#fff;cursor:pointer;
+    display:flex;align-items:center;justify-content:center;transition:transform .08s,filter .08s}
+  button:active{transform:scale(.97);filter:brightness(1.15)}
+  button:disabled{opacity:.35}
+  #next{flex:3;background:var(--celeste);font-size:30px;font-weight:600;flex-direction:column;gap:6px}
+  #next span{font-size:84px;line-height:1}
+  #prev{flex:1.2;background:var(--card);font-size:22px;font-weight:500;gap:10px}
+  .extra{display:flex;gap:12px}
+  .extra button{flex:1;background:var(--card);font-size:15px;padding:14px;color:var(--sub);border-radius:16px}
+  #ayuda{text-align:center;color:var(--sub);font-size:15px;line-height:1.5;padding:24px}
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <strong>Control remoto</strong>
+    <div id="estado"><div id="punto"></div><span id="txt">Conectando…</span></div>
+  </header>
+  <button id="prev" disabled>← Atrás</button>
+  <button id="next" disabled><span>→</span>Siguiente</button>
+  <div class="extra">
+    <button id="first" disabled>⇤ Inicio</button>
+    <button id="last" disabled>Final ⇥</button>
+  </div>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/peerjs@1.5.5/dist/peerjs.min.js"></script>
+<script>
+(function () {
+  const destino = decodeURIComponent(location.hash.slice(1));
+  const punto = document.getElementById('punto');
+  const txt = document.getElementById('txt');
+  const botones = ['prev', 'next', 'first', 'last'].map(id => document.getElementById(id));
+
+  function estado(t, clase) {
+    txt.textContent = t;
+    punto.className = clase || '';
+    botones.forEach(b => (b.disabled = clase !== 'ok'));
+  }
+
+  if (!destino) {
+    document.querySelector('main').innerHTML =
+      '<div id="ayuda">Abrí esta página escaneando el código QR que aparece en la presentación (tecla <b>Q</b> en la compu).</div>';
+    return;
+  }
+
+  let peer, conn, intentos = 0;
+
+  function conectar() {
+    estado('Conectando…');
+    if (!peer || peer.destroyed) {
+      peer = new Peer();
+      peer.on('open', abrir);
+      peer.on('error', e => {
+        if (e.type === 'peer-unavailable') {
+          estado('No encuentro la presentación. Recargala y volvé a escanear el QR', 'mal');
+        } else reintentar();
+      });
+      peer.on('disconnected', () => { try { peer.reconnect(); } catch (e) {} });
+    } else abrir();
+  }
+
+  function abrir() {
+    conn = peer.connect(destino, { reliable: true });
+    conn.on('open', () => { intentos = 0; estado('Conectado', 'ok'); });
+    conn.on('close', reintentar);
+    conn.on('error', reintentar);
+  }
+
+  function reintentar() {
+    estado('Reconectando…', 'mal');
+    if (intentos++ < 20) setTimeout(conectar, 1500);
+    else estado('Sin conexión. Volvé a escanear el QR', 'mal');
+  }
+
+  function enviar(accion) {
+    if (conn && conn.open) {
+      conn.send({ accion });
+      if (navigator.vibrate) navigator.vibrate(25);
+    } else reintentar();
+  }
+
+  botones.forEach(b => b.addEventListener('click', () => enviar(b.id)));
+
+  // Deslizar con el dedo: izquierda = siguiente, derecha = atrás
+  let x0 = null;
+  document.addEventListener('touchstart', e => (x0 = e.touches[0].clientX), { passive: true });
+  document.addEventListener('touchend', e => {
+    if (x0 === null) return;
+    const dx = e.changedTouches[0].clientX - x0;
+    if (Math.abs(dx) > 70) enviar(dx < 0 ? 'next' : 'prev');
+    x0 = null;
+  });
+
+  // Mantener la pantalla del celu encendida
+  let lock;
+  async function pedirLock() {
+    try { lock = await navigator.wakeLock.request('screen'); } catch (e) {}
+  }
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'visible') {
+      pedirLock();
+      if (!conn || !conn.open) { intentos = 0; conectar(); }
+    }
+  });
+  pedirLock();
+
+  // Mantener viva la conexión
+  setInterval(() => { if (conn && conn.open) conn.send({ accion: 'ping' }); }, 15000);
+
+  conectar();
+})();
+</script>
+</body>
+</html>
