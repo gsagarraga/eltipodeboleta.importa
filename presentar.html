@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>¿El tipo de boleta importa? — Presentación</title>
-<meta name="description" content="Presentación interactiva en 33 diapositivas del TFG '¿El tipo de boleta importa?', Ciencia Política, UNC.">
+<meta name="description" content="Presentación interactiva en 32 diapositivas del TFG '¿El tipo de boleta importa?', Ciencia Política, UNC.">
 <meta property="og:type" content="website">
 <meta property="og:title" content="¿El tipo de boleta importa? — Presentación">
 <meta property="og:description" content="Presentación interactiva del TFG sobre boletas electorales y resultados en cuatro provincias argentinas (2003–2023).">
@@ -345,7 +345,7 @@ h2.stitle{
   <button class="navbtn" id="btnPrev" onclick="prevSlide()" aria-label="Anterior">
     <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 3 5 8l5 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
   </button>
-  <span id="counter" class="mono">01 / 33</span>
+  <span id="counter" class="mono">01 / 32</span>
   <button class="navbtn" id="btnNext" onclick="nextSlide()" aria-label="Siguiente">
     <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M6 3l5 5-5 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
   </button>
@@ -547,7 +547,7 @@ SLIDES.push({ tag:'Etapa 1 · La chispa', render:()=>`
   <p class="slede"><strong style="color:var(--paper-dim)">De esa pregunta surge el estudio:</strong> una comparación subnacional entre Córdoba, Entre Ríos, Santa Fe y Neuquén, cuatro provincias que usaron —o no— distintos instrumentos de votación entre 2003 y 2023, para describir su relación con el <span class="hl c">voto en blanco</span>, el <span class="hl r">voto nulo</span>, el <span class="hl a">voto cruzado</span> y la <span class="hl v">participación electoral</span>.</p>
 `});
 
-// ---- 5-10. ANTECEDENTES ----
+// ---- 5-9. ANTECEDENTES ----
 const ANTE = [
   { tag:'La boleta como objeto de estudio', mark:'objeto de estudio', color:'celeste',
     html:'Clemente (2007) define la boleta como el instrumento con el que el votante expresa su preferencia y condición del voto secreto. Nohlen (2016) y Przeworski (2010) sostienen que <span class="hl c">"lo electoral"</span> no es un aspecto menor sino un componente central de la calidad democrática.',
@@ -564,13 +564,10 @@ const ANTE = [
   { tag:'Participación electoral', mark:'Participación', color:'celeste',
     html:'Es la dimensión con menos consenso teórico. Blais (2013) y Haime (2017) destacan que pesan más los <span class="hl c">factores contextuales y actitudinales</span> que los estrictamente institucionales; Card y Moretti (2007) sí detectan un efecto —desigual según el grupo social— del voto electrónico en EE. UU.',
     cite:'Blais (2013) · Haime (2017) · Card y Moretti (2007)' },
-  { tag:'¿Por qué votamos como votamos?', mark:'Por qué', color:'rojo',
-    html:'De Downs (1957) y su votante puramente instrumental, a Riker y Ordeshook (1968) y el <span class="hl r">"deber cívico"</span>, hasta Anduiza y Bosch (2004), que suman recursos individuales, vínculos sociales y contexto institucional a la decisión de votar.',
-    cite:'Downs (1957) · Riker y Ordeshook (1968) · Anduiza y Bosch (2004)' },
 ];
 ANTE.forEach((a,i)=>{
   SLIDES.push({ tag:'Etapa 2 · Ver qué se sabe', render:()=>`
-    <p class="eyebrow" style="--dot:var(--${a.color})">Antecedentes teóricos <b>· ${i+1} de 6</b></p>
+    <p class="eyebrow" style="--dot:var(--${a.color})">Antecedentes teóricos <b>· ${i+1} de ${ANTE.length}</b></p>
     <h2 class="stitle" style="font-size:clamp(26px,calc(6.4vmin*var(--k)),220px); margin-bottom:clamp(18px,calc(3.4vmin*var(--k)),134px);">${(()=>{ const k=({celeste:'c',rojo:'r',amarillo:'a',verde:'v'})[a.color]; const box=t=>`<span class="tbox ${k}">${t}</span>`;
         return a.mark ? [].concat(a.mark).reduce((t,m)=>t.replace(m, box(m)), a.tag) : box(a.tag); })()}</h2>
     <p class="slede" style="font-size:clamp(16px,calc(3.38vmin*var(--k)),110px); max-width:82ch; margin-bottom:24px; color:var(--text)">${a.html}</p>
@@ -621,8 +618,13 @@ function dumbbellCol(groups, color, Wc, x0, x1, legend, above){
       svg += `<circle cx="${bx}" cy="${cy}" r="9" fill="var(--bg)" style="stroke:var(--text-dim)" stroke-width="2.6"/>`;
       svg += `<circle cx="${ax}" cy="${cy}" r="10.5" fill="${color}" style="stroke:var(--bg)" stroke-width="2.6"/>`;
       const R = dir >= 0;
-      svg += `<text x="${R?bx-18:bx+18}" y="${cy+7}" text-anchor="${R?'end':'start'}" font-family="${MONO}" font-size="19" style="fill:var(--text-dim)">${fmt(before)}</text>`;
-      svg += `<text x="${R?ax+18:ax-18}" y="${cy+7}" text-anchor="${R?'start':'end'}" font-family="${MONO}" font-weight="700" font-size="20" fill="${color}">${fmt(after)}</text>`;
+      // los valores tapan la línea gris de fondo con un recuadro del color de la tarjeta, así no se cruzan con el trazo
+      const lab = (v,fs,x,anchor,extra)=>{
+        const w = fmt(v).length*0.6*fs + 12, rx = anchor==='end' ? x-w+6 : x-6;
+        return `<rect x="${rx}" y="${cy-15}" width="${w}" height="30" rx="4" style="fill:var(--card)"/><text x="${x}" y="${cy+7}" text-anchor="${anchor}" font-family="${MONO}" font-size="${fs}" ${extra}>${fmt(v)}</text>`;
+      };
+      svg += lab(before,19,R?bx-18:bx+18,R?'end':'start','style="fill:var(--text-dim)"');
+      svg += lab(after,20,R?ax+18:ax-18,R?'start':'end',`font-weight="700" fill="${color}"`);
       const txt = dir>0 ? '▲ sube' : dir<0 ? '▼ baja' : '≈ sin cambio';
       svg += `<text x="${(bx+ax)/2}" y="${cy+33}" text-anchor="middle" font-family="${MONO}" font-weight="700" font-size="19" style="fill:${dir===0?'var(--text-dim)':color}">${txt}</text>`;
       y += rowH;
@@ -707,13 +709,11 @@ SLIDES.push({ tag:'Etapa 3 · Diseñar', render:()=>{
         <p style="${txt}">24 casos: 4 provincias × 6 elecciones generales entre 2003 y 2023.</p>
       </div>
       <div class="card" style="border-top:3px solid var(--amarillo);display:flex;flex-direction:column;justify-content:center;">
-        ${lab('var(--amarillo)','Variable nominal')}
         ${big('Tipo de Boleta Electoral (TBE)')}
         <p style="${txt}margin-bottom:clamp(6px,calc(1.2vmin*var(--k)),48px);">Cuatro valores, uno por instrumento vigente en cada elección:</p>
         <div style="display:flex;flex-wrap:wrap;gap:8px;">${['BP','BUS','BUT','BUE'].map(c=>`<span class="chip" style="background:${BALLOT_COLORS[c]};color:#141209;font-size:clamp(12px,calc(2.3vmin*var(--k)),82px);padding:5px 14px;">${c}</span>`).join('')}</div>
       </div>
       <div class="card" style="border-top:3px solid var(--verde);display:flex;flex-direction:column;justify-content:center;">
-        ${lab('var(--verde)','Cuatro variables cuantitativas continuas')}
         ${big('Dimensiones del voto')}
         <p style="${txt}">Voto en blanco (VB) · Voto nulo (VN) · Voto cruzado (VC) · Participación electoral (PE)</p>
       </div>
@@ -814,7 +814,7 @@ SLIDES.push({ tag:'Etapa 3 · Diseñar', render:()=>`
       ['var(--verde)','Participación','Porcentaje de electores habilitados que concurren a votar.'],
     ].map(([c,t,d])=>`<div class="card m-tight" style="border-top:3px solid ${c}; display:flex; flex-direction:column;"><p class="mono" style="font-size:clamp(12px,calc(1.67vmin*var(--k)),58px);letter-spacing:.08em;text-transform:uppercase;color:${c};margin-bottom:8px;">${t}</p><p style="font-size:clamp(13px,calc(2.4vmin*var(--k)),82px);color:var(--text);line-height:1.5;">${d}</p></div>`).join('')}
   </div>
-  <p class="slede" style="margin-top:18px;font-size:clamp(12.5px,calc(2.22vmin*var(--k)),74px);">Ejecutivo y legislativo son "arenas electorales diferenciadas" (Varetto, 2007): el elector se comporta distinto según cómo se presenta la oferta (Malamud y De Luca, 2016).</p>
+  <p class="slede" style="margin-top:18px;font-size:clamp(12.5px,calc(2.22vmin*var(--k)),74px);">El voto en blanco y el voto nulo se miden por separado en la categoría ejecutiva y en la legislativa, porque son "arenas electorales diferenciadas" (Varetto, 2017): el elector se comporta distinto según cómo se presenta la oferta (Malamud y De Luca, 2016).</p>
 `});
 
 // ---- 17-20. LAS 4 VARIABLES: DISPERSIÓN ----
@@ -938,7 +938,7 @@ HYPOTHESES.forEach((h,i)=>{
 // ---- 28. CONCLUSIONES: statement ----
 SLIDES.push({ tag:'Etapa 6 · Decir solo lo que se puede', render:()=>`
   <p class="eyebrow">Consideraciones finales</p>
-  <h2 class="stitle" style="font-size:clamp(38px,calc(10.67vmin*var(--k)),422px)">El tipo de <span class="hl c">boleta</span> importa.</h2>
+  <h2 class="stitle" style="font-size:clamp(38px,calc(10.67vmin*var(--k)),422px)">El <span class="hl c">tipo de boleta</span> importa.</h2>
   <p class="slede" style="font-size:clamp(15px,calc(3.02vmin*var(--k)),96px); max-width:80ch; margin:20px 0 30px;">El diseño del instrumento con el que votamos no es neutral: parece exhibir una relación con tres de las cuatro dimensiones estudiadas.</p>
   <div class="grid2" style="gap:clamp(12px,calc(1.8vmin*var(--k)),96px); max-width:900px;">
     ${[['Voto en blanco',true],['Voto nulo',true],['Voto cruzado',true],['Participación electoral',false]].map(([l,yes])=>{
